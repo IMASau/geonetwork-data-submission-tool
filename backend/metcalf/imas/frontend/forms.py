@@ -2,6 +2,9 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext as _
+from os.path import splitext
 
 from metcalf.imas.backend.models import DocumentAttachment
 
@@ -16,6 +19,19 @@ class DocumentAttachmentForm(forms.ModelForm):
 
     def clean_name(self):
         return self.cleaned_data['name'].replace(" ", "_")
+    
+    def clean_file(self):
+        file = self.cleaned_data['file']
+
+        extension = splitext(file.name)[1][1:]
+
+        if (extension in settings.BLACKLISTED_ATTACHMENT_EXTENSIONS):
+            raise ValidationError(
+                _('File type \'.%(extension)s\' not permitted. Add files to a .zip archive and try again.'),
+                code='invalid',
+                params={'extension': extension},
+            )
+        return file
 
     class Meta:
         model = DocumentAttachment

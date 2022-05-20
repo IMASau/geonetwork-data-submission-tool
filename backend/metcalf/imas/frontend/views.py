@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -643,9 +643,9 @@ def delete_attachment(request, uuid, id):
     is_document_contributor(request, attachment.document)
     try:
         attachment.delete()
-        return Response({"message": "Deleted"})
+        return JsonResponse({"message": "Deleted"})
     except RuntimeError as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+        return JsonResponse({"message": get_exception_message(e), "args": e.args}, status=400)
 
 
 @api_view(['GET'])

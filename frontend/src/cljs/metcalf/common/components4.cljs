@@ -2100,8 +2100,8 @@
          :getValue      (ui-controls/obj-path-getter value-path)
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
-         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
+         :onItemClick   nil
+         :onRemoveClick (fn [idx] (rf/dispatch [::imas-upload-files-remove-click props idx]))}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

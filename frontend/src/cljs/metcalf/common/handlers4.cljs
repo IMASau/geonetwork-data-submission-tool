@@ -191,6 +191,12 @@
     (-> {:db db}
         (actions4/del-item-action form-id data-path idx))))
 
+(defn imas-upload-files-remove-click
+  [{:keys [db]} [_ ctx idx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions4/del-item-action form-id data-path idx))))
+
 (defn selection-list-reorder
   [{:keys [db]} [_ ctx src-idx dst-idx]]
   (let [{:keys [form-id data-path]} ctx]

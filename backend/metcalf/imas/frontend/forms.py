@@ -4,6 +4,7 @@ from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
+from os.path import splitext
 
 from metcalf.imas.backend.models import DocumentAttachment
 
@@ -22,7 +23,7 @@ class DocumentAttachmentForm(forms.ModelForm):
     def clean_file(self):
         file = self.cleaned_data['file']
 
-        extension = file.name.split('.')[-1] if len(file.name.split('.')) > 1 else ''
+        extension = splitext(file.name)[1][1:]
 
         if (extension in settings.BLACKLISTED_ATTACHMENT_EXTENSIONS):
             raise ValidationError(

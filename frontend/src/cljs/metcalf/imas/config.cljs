@@ -146,6 +146,7 @@
 (set! rules4/rule-registry
       {"requiredField"           rules4/required-field
        "requiredWhenYes"         rules4/required-when-yes
+       "requiredIfValue"         rules4/required-if-value
        "otherConstraintsLogic"   rules4/other-constraints-logic
        "maxLength"               rules4/max-length
        "maxKeywords"             rules4/tern-max-keywords

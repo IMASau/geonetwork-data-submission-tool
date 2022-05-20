@@ -516,15 +516,20 @@
               },
               "instrument_term": {
                 "type": "object",
+                "rules": [
+                  {
+                    "requiredIfValue": {
+                      "value-field": "URI",
+                      "dependent-field": "Name"
+                    }
+                  }
+                ],
                 "properties": {
                   "URI": {
                     "type": "string"
                   },
                   "Name": {
-                    "type": "string",
-                    "rules": [
-                      "requiredField"
-                    ]
+                    "type": "string"
                   },
                   "isUserDefined": {
                     "type": "boolean"
@@ -533,15 +538,20 @@
               },
               "platform_term": {
                 "type": "object",
+                "rules": [
+                  {
+                    "requiredIfValue": {
+                      "value-field": "URI",
+                      "dependent-field": "Name"
+                    }
+                  }
+                ],
                 "properties": {
                   "URI": {
                     "type": "string"
                   },
                   "Name": {
-                    "type": "string",
-                    "rules": [
-                      "requiredField"
-                    ]
+                    "type": "string"
                   },
                   "isUserDefined": {
                     "type": "boolean"

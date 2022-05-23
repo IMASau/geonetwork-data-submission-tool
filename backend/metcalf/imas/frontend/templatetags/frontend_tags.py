@@ -2,6 +2,7 @@ import subprocess
 
 from django import template
 from django.conf import settings
+from django.contrib.sites.models import Site
 
 register = template.Library()
 
@@ -28,3 +29,7 @@ def GIT_VERSION():
 
     except:
         return '(unknown)'
+
+@register.simple_tag
+def SITE_CONTENT_EMAIL():
+    return Site.objects.get(id=settings.SITE_ID).sitecontent.email

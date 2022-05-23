@@ -106,7 +106,7 @@
   [form-state _]
   (let [{:progress/keys [fields errors empty]}
         (:progress/score form-state)
-        can-submit? (= errors 0)]
+        can-submit? (or (not errors) (zero? errors))]
     (when (pos-int? fields)
       {:can-submit? can-submit?
        :value       (/ (- fields empty) fields)})))

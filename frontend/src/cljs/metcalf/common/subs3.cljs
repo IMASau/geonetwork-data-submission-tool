@@ -59,7 +59,7 @@
   (let [{:progress/keys [fields required required-errors errors]
          :or            {errors 0 required-errors 0}}
         (:progress/score form-state)
-        can-submit? (= errors 0)]
+        can-submit? (or (not errors) (zero? errors))]
     (when (pos-int? fields)
       {:can-submit? can-submit?
        :value       (/ (- required required-errors) required)})))

@@ -529,7 +529,8 @@ def save(request, uuid, update_number):
         draft.doiRequested = data.get('doiRequested', False)
         draft.save()
 
-        # Remove any attachments which are no longer mentioned in the XML.
+        # Remove any attachments which are no longer mentioned in the record.
+        # NOTE: this doesn't cover the case in which an attachment is deleted from a record (and the db) but then changes to the record are not saved.
         if data.get('attachments') is not None:
             xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
             # TODO: the logic to find files based an os.path.basename seems te be flawed.
@@ -538,10 +539,6 @@ def save(request, uuid, update_number):
             for attachment in doc.attachments.all():
                 name = os.path.basename(attachment.file.url)
                 if name not in xml_names:
-                    # TODO: sholud we delete the actual file as well?
-                    #       deleting the model does not remove files from storage backend
-                    # TODO: if we leave files around we may want to think about some cleanup process
-                    # attachement.file.delete()
                     attachment.delete()
 
         tree = etree.parse(doc.template.file.path)

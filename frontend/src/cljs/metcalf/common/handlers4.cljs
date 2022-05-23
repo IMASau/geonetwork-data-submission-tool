@@ -588,3 +588,13 @@
       (actions4/open-modal-action {:db db}
                                   {:type    :modal.type/alert
                                    :message (str status ": Error uploading file")}))))
+
+(defn -delete-attachment
+  "Deletes attachment from form once deletion process has completed"
+  [{:keys [db]} [_ config idx {:keys [status]}]]
+  (let [{:keys [form-id data-path]} config]
+    (case status
+      200 (actions4/del-item-action {:db db} form-id data-path idx) ; TODO: Delete item
+      (actions4/open-modal-action {:db db}
+                                  {:type    :modal.type/alert
+                                   :message (str status ": Error deleting file")}))))

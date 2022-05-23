@@ -124,6 +124,19 @@
                      (.then (fn [json] {:status (.-status resp)
                                         :body   json}))))))))
 
+(defn delete-multipart-form
+  [{:keys [url data]}]
+  (let [body (js/FormData.)]
+    (doseq [[k v] data]
+      (.append body (name k) v))
+    (-> (js/fetch url #js {:headers #js {:X-CSRFToken (get-csrf)}
+                           :method  "delete"
+                           :body    body})
+        (.then (fn [resp]
+                 (-> (.json resp)
+                     (.then (fn [json] {:status (.-status resp)
+                                        :body   json}))))))))
+
 (defn get-value-by-keys
   "Like get-in but for js objects."
   [o path]

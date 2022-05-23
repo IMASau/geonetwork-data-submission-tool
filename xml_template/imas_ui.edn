@@ -13,6 +13,7 @@
    [m4/form-group
     {:form-id    [:form]
      :data-path  ["identificationInfo" "title"]
+     :label      "Title"
      :helperText "Clear and concise description of the content of the resource"}
     [m4/input-field
      {:form-id   [:form]
@@ -53,7 +54,7 @@
    [m4/form-group
     {:form-id   [:form]
      :data-path ["identificationInfo" "status"]
-     :label     "Status"}
+     :label     "Status of data"}
     [m4/select-value
      {:form-id    [:form]
       :data-path  ["identificationInfo" "status"]
@@ -97,6 +98,7 @@
    [m4/form-group
     {:form-id    [:form]
      :data-path  ["identificationInfo" "abstract"]
+     :label      "Abstract"
      :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected, brief statement about the purpose of the study"}
     [m4/textarea-field
      {:form-id     [:form]
@@ -337,7 +339,7 @@
      ;  {:form-id    [:form]
      ;   :data-path  []
      ;   :data-paths [["resourceLineage" "lineage"]]}]
-     ; [:h2 "5: How"]
+   [:h2 "5: How"]
    [m4/form-group
     {:form-id    [:form]
      :data-path  ["resourceLineage" "statement"]
@@ -820,7 +822,7 @@
     [m4/input-field
      {:form-id     ?form-id
       :data-path   [?data-path "Name"]
-      :placeholder "Name in dataset"}]]]
+      :placeholder "Custom parameter"}]]]
 
   :parameter-unit/user-defined-entry-form
   [:div
@@ -830,7 +832,7 @@
     [m4/input-field
      {:form-id     ?form-id
       :data-path   [?data-path "Name"]
-      :placeholder "Name in dataset"}]]]
+      :placeholder "Custom unit"}]]]
 
   :parameter-instrument/user-defined-entry-form
   [:div
@@ -840,7 +842,7 @@
     [m4/input-field
      {:form-id     ?form-id
       :data-path   [?data-path "Name"]
-      :placeholder "Name in dataset"}]]]
+      :placeholder "Custom instrument"}]]]
 
   :parameter-platform/user-defined-entry-form
   [:div
@@ -850,7 +852,7 @@
     [m4/input-field
      {:form-id   ?form-id
       :data-path [?data-path "Name"]
-      :placeholder "Name in dataset"}]]]
+      :placeholder "Custom platform"}]]]
 
   :data-parameter/user-defined-entry-form
   [:div
@@ -862,7 +864,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-select-option-breadcrumb
+      [m4/async-add-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "longName_term"]
         :uri             "/api/parametername"
@@ -899,7 +901,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-select-option-simple
+      [m4/async-add-select-option
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
         :uri         "/api/parameterunit"
@@ -922,11 +924,11 @@
    [m4/form-group
     {:form-id    ?form-id
      :data-path  [?data-path "instrument_term"]
-     :label      "Instrument"
+     :label      "Instrument (Optional)"
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-select-option-breadcrumb
+      [m4/async-add-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "instrument_term"]
         :uri             "/api/parameterinstrument"
@@ -950,11 +952,11 @@
    [m4/form-group
     {:form-id    ?form-id
      :data-path  [?data-path "platform_term"]
-     :label      "Platform"
+     :label      "Platform (Optional)"
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-select-option-breadcrumb
+      [m4/async-add-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "platform_term"]
         :uri             "/api/parameterplatform"
@@ -1003,6 +1005,7 @@
     {:label     "Link to data services"
      :form-id   [:form]
      :data-path ["distributionInfo" "transferOptions"]}
+    [:p "Please note: This is intended for advanced users only"]
     [:div.SelectionTableStyle
      [m4/selection-list-columns
       {:form-id             [:form]
@@ -1010,14 +1013,14 @@
        :value-path          ["linkage"]
        :placeholder-record? true
        :select-snapshot?    true
-       :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 2}
-                             {:columnHeader "Server" :label-path ["linkage"] :flex 2}
-                             {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+       :columns             [{:columnHeader "Title" :label-path ["description"] :flex 2}
+                             {:columnHeader "URL" :label-path ["linkage"] :flex 2}
+                             {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]]
 
     [m4/list-add-button
      {:form-id     [:form]
       :data-path   ["distributionInfo" "transferOptions"]
-      :button-text "Add data service"
+      :button-text "Add new"
       :value-path  ["linkage"]}]
 
     [m4/list-edit-dialog2
@@ -1027,7 +1030,9 @@
       :title       "Data Source"
       :template-id :transferOptions/user-defined-entry-form
       :field-paths [["description"]
-                    ["protocol"]]}]]]
+                    ["protocol"]
+                    ["linkage"]
+                    ["name"]]}]]]
 
   :transferOptions/user-defined-entry-form
   [:div

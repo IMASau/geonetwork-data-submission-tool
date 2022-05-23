@@ -191,7 +191,7 @@
     (-> {:db db}
         (actions4/del-item-action form-id data-path idx))))
 
-(defn imas-upload-files-remove-click
+(defn upload-files-remove-click
   [{:keys [db]} [_ config idx]]
   (let [{:keys [form-id data-path]} config
         path (utils4/as-path [form-id :state (blocks4/block-path (conj data-path idx "delete_url"))])

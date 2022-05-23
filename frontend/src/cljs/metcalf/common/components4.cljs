@@ -2101,7 +2101,7 @@
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
          :onItemClick   nil
-         :onRemoveClick (fn [idx] (rf/dispatch [::imas-upload-files-remove-click props idx]))}]
+         :onRemoveClick (fn [idx] (rf/dispatch [::upload-files-remove-click props idx]))}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

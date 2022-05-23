@@ -191,15 +191,6 @@
     (-> {:db db}
         (actions4/del-item-action form-id data-path idx))))
 
-(defn upload-files-remove-click
-  [{:keys [db]} [_ config idx]]
-  (let [{:keys [form-id data-path]} config
-        path (utils4/as-path [form-id :state (blocks4/block-path (conj data-path idx "delete_url"))])
-        delete-url (blocks4/as-data (get-in db path))]
-    (actions4/delete-attachment {:db db} {:url    delete-url
-                                          :config config
-                                          :idx    idx})))
-
 (defn selection-list-reorder
   [{:keys [db]} [_ ctx src-idx dst-idx]]
   (let [{:keys [form-id data-path]} ctx]

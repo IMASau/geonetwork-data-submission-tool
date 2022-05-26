@@ -58,12 +58,10 @@
             <div class="inner cover">
                 <h1 class="cover-heading">{{ sitecontent.title }} {{ sitecontent.tag_line }}</h1>
 
-                <p class="lead">
-                    An open source tool for capturing research data -
-                    simplifying the process of gathering information in a standard format
-                    and preparing it for upload to the {{ sitecontent.portal_title }}.
-                </p>
+                <p class="lead">{{ sitecontent.homepage_abstract }}</p>
 
+                <p>{{ sitecontent.homepage_acknowledgements }}</p>
+                
                 <p class="lead">
                     <a href="{% url 'account_login' %}" class="btn btn-lg btn-default">Sign in</a>
                 </p>
@@ -75,7 +73,7 @@
                         <a href="{{ sitecontent.homepage_image_credit_url }}">
                             {{ sitecontent.homepage_image_credit_name }}</a>
                         -
-                        Code on <a href="https://github.com/IMASau/geonetwork-data-submission-tool">GitHub</a>
+                        Code on <a href="{{ sitecontent.code_location_url}}">{{ sitecontent.code_location_name }}</a>
                     </p>
                 </div>
             </div>

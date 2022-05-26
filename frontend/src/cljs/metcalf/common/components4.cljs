@@ -2093,6 +2093,13 @@
         {:keys [disabled is-hidden value-path placeholder]} props]
     (when-not is-hidden
       [:div
+       [:div
+        (for [item items] ; Hidden hyperlinks to the files that don't display, but can be "clicked" via js
+          [:a
+           {:href (str js/location.origin (get item "file"))
+            :download true
+            :id   (str "download" (get item "file"))
+            :key  (get item "file")}])]
        [ui-controls/SimpleSelectionList
         {:items         (or items [])
          :disabled      disabled
@@ -2100,7 +2107,7 @@
          :getValue      (ui-controls/obj-path-getter value-path)
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-         :onItemClick   nil
+         :onItemClick   (fn [idx] (.click (js/document.getElementById (str "download" (get (nth items idx) "file")))))
          :onRemoveClick (fn [idx] (rf/dispatch [::upload-files-remove-click props idx]))}]
        [ui-controls/Dropzone
         {:disabled    disabled

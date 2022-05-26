@@ -165,12 +165,13 @@
 
 (defn score-props
   "Generate score based on block props.  Considers :required and :errors."
-  [{:keys [props]}]
+  [{:keys [props type]}]
   (let [{:keys [required errors]} props]
-    (-> {:progress/fields 1}
-        (cond-> required (assoc :progress/required 1))
-        (cond-> (seq errors) (assoc :progress/errors 1))
-        (cond-> (and required (seq errors)) (assoc :progress/required-errors 1)))))
+    (cond-> {}
+      (not (#{"array" "object"} type)) (assoc :progress/fields 1)
+      required (assoc :progress/required 1)
+      (seq errors) (assoc :progress/errors 1)
+      (and required (seq errors)) (assoc :progress/required-errors 1))))
 
 (defn score-object
   "Generate score for block object based on :content scores."

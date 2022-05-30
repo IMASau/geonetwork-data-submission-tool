@@ -709,7 +709,7 @@
 								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->
 								<mcc:MD_Identifier>
 									<mcc:code>
-										<gcx:Anchor xlink:href="https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-discovery-parameter-vocabulary</gcx:Anchor>
+										<gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-discovery-parameter-vocabulary</gcx:Anchor>
 									</mcc:code>
 								</mcc:MD_Identifier>
 							</cit:identifier>
@@ -750,7 +750,7 @@
 								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->
 								<mcc:MD_Identifier>
 									<mcc:code>
-										<gcx:Anchor xlink:href="https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-instrument-vocabulary</gcx:Anchor>
+										<gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-instrument-vocabulary</gcx:Anchor>
 									</mcc:code>
 								</mcc:MD_Identifier>
 							</cit:identifier>

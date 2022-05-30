@@ -954,8 +954,8 @@
       {
         "data_path": "identificationInfo.dataParameters",
         "term_key": "longName_term",
-        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary\"]",
-        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary\"]/mri:keyword"
+        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary\"]",
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary\"]/mri:keyword"
       }
     ],
     [
@@ -972,8 +972,8 @@
       {
         "data_path": "identificationInfo.dataParameters",
         "term_key": "instrument_term",
-        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]",
-        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]/mri:keyword"
+        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]",
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]/mri:keyword"
       }
     ],
     [

@@ -995,7 +995,7 @@
     [
       "imasLegalConstraints",
       {
-        "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
+        "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints/mco:graphic]"
       }
     ],
     [

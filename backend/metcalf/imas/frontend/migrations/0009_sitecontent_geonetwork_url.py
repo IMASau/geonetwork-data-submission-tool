@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sitecontent',
             name='geonetwork_url',
-            field=models.URLField(default='https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/catalog.search#/metadata'),
+            field=models.URLField(default='https://metadata.imas.utas.edu.au/geonetwork/srv/eng/catalog.search#/metadata'),
             preserve_default=False,
         ),
     ]

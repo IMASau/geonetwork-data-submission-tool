@@ -970,3 +970,43 @@ def export2_generateAdditionalResourceConstraints_handler(data, xml_node, spec, 
             gco.text = constraint
 
             mount_node.append(constraintNode)
+
+
+def export2_generateCredits_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """Append any additional credits. The presence of static
+    (non-modifiable) entries makes regular management difficult.
+
+    Configured with xf_props
+    - xform[1].data_path
+    - xform[1].template_xpath
+    - xform[1].value_xpath
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    template_xpath = xf_props.get('template_xpath', None)
+    value_xpath = xf_props.get('value_xpath', None)
+
+    assert data_path is not None, "export2_generateCredits_handler: xf_props.data_path must be set"
+    assert template_xpath is not None, "export2_generateCredits_handler: xf_props.template_xpath must be set"
+    assert value_xpath is not None, "export2_generateCredits_handler: xf_props.value_xpath must be set"
+
+    hit, credits = get_dotted_path(data, data_path)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(template_nodes) >= 1
+
+    mount_node = template_nodes[0].getparent()
+    mount_index = mount_node.index(template_nodes[0])
+    template = copy.deepcopy(template_nodes[0])
+    for node in template_nodes:
+        node.getparent().remove(node)
+
+    if hit:
+        nsmap = xml_kwargs['namespaces']
+        for credit in credits:
+            creditNode = copy.deepcopy(template)
+            gco = creditNode.xpath(value_xpath, namespaces=nsmap)[0]
+            gco.text = credit
+
+            mount_node.append(creditNode)

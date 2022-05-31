@@ -372,8 +372,7 @@
 					Example: The Australian National Facility for Ocean Gliders (ANFOG), with IMOS/NCRIS funding, deploys a fleet of eight gliders around Australia. The data represented by this record, are presented in delayed mode. The underwater ocean glider represents a technological revolution for oceanography. Autonomous ocean gliders can be built relatively cheaply, are controlled remotely and are reusable allowing them to make repeated subsurface ocean observations at a fraction of the cost of conventional methods. The data retrieved from the glider fleet will contribute to the study of the major boundary current systems surrounding Australia and their links to coastal ecosystems....The IMOS gliders will focus particularly on the major boundary currents that run down the Australian coast, the Leeuwin in the west and the East Australian Current (EAC). The study of these currents is critical for understanding the north-south transport of freshwater, heat and biogeochemical properties. The currents exert a large influence on coastal ecosystems, shipping lanes and fisheries.</gco:CharacterString>
 			</mri:abstract>
 			<mri:credit>
-        <!-- Who17 -->
-				<!-- If placeholder text is in the template, retain this unless overwritten -->
+        		<!-- Who17 -->
 				<gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
 			</mri:credit>
 			<mri:status>

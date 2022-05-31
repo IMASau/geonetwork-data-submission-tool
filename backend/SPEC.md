@@ -495,7 +495,7 @@ and, for example, the codeListValue attribute, but don’t need to modify the va
 
 ```python
 def geonetwork_url(x):
-    return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
+    return '{geonetwork_url}/{uuid}'.format(uuid=x, geonetwork_url=Site.objects.get_current().sitecontent.geonetwork_url)
 
 SPEC_FUNCTIONS = {
     ...

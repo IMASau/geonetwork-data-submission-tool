@@ -606,7 +606,7 @@ def geonetwork_uuid(x):
 
 # TODO: should not be in common
 def geonetwork_url(x):
-    return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
+    return '{geonetwork_url}/{uuid}'.format(uuid=x, geonetwork_url=Site.objects.get_current().sitecontent.geonetwork_url)
 
 
 # exportTo functions:

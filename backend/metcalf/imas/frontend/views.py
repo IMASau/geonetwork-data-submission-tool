@@ -287,7 +287,8 @@ export2_handlers = {
     "imasParameterUnitAttributeGroup": xmlutils5.export2_imasParameterUnitAttributeGroup_handler,
     "imasParameterInstrumentAcquisitionInformation": xmlutils5.export2_imasParameterInstrumentAcquisitionInformation_handler,
     "imasLegalConstraints": xmlutils5.export2_imasLegalConstraints_handler,
-    "imasDigitalTransferOptions": xmlutils5.export2_imasDigitalTransferOptions_handler
+    "imasDigitalTransferOptions": xmlutils5.export2_imasDigitalTransferOptions_handler,
+    "generateCredits": xmlutils5.export2_generateCredits_handler,
 }
 
 

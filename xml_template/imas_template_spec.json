@@ -644,13 +644,16 @@
         },
         "credits": {
           "!docstring": "Who17",
-          "xpath": "mri:credit",
           "keep": false,
+          "export": false,
           "type": "array",
+          "container": "mco:credit[last()]",
           "items": {
-            "xpath": "gco:CharacterString",
-            "container": "mri:credit/gco:CharacterString",
             "type": "string",
+            "export": false,
+            "keep": false,
+            "append": true,
+            "valueChild": "gco:CharacterString",
             "rules": [
               "requiredField"
             ]
@@ -1068,6 +1071,14 @@
       {
         "data_path": "distributionInfo",
         "node_xpath": "/mdb:MD_Metadata/mdb:distributionInfo"
+      }
+    ],
+    [
+      "generateCredits",
+      {
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit[last()]",
+        "value_xpath": "gco:CharacterString",
+        "data_path": "identificationInfo.credits"
       }
     ]
   ]

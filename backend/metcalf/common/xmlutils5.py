@@ -771,7 +771,7 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
         ]
     )
 
-    df_hit = get_dotted_path(data, "distributionInfo")[0]
+    df_hit, _ = get_dotted_path(data, "distributionInfo")
 
     if not df_hit:
         df_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat', **xml_kwargs)[0]

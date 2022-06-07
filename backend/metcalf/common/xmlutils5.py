@@ -773,7 +773,7 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
 
     # Delete the distribution node if we know it will be empty (no distributionInfo or supportingResources)
     if not (get_dotted_path(data, "distributionInfo")[0] or sr_hit):
-        di_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo', **xml_kwargs)
+        di_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo', **xml_kwargs)[0]
         di_node.getparent().remove(di_node)
 
 

@@ -777,8 +777,8 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
         df_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat', **xml_kwargs)[0]
         df_node.getparent().remove(df_node)
 
-    # Delete the distribution node if we know it will be empty (no distributionInfo or supportingResources)
-    if not (df_hit or sr_hit):
+    # Delete the distribution node if we know it will be empty (no distributionFormat, transferOptions, or supportingResources)
+    if not (df_hit or to_hit or sr_hit):
         di_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo', **xml_kwargs)[0]
         di_node.getparent().remove(di_node)
 

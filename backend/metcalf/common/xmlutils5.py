@@ -735,7 +735,7 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
             dtos.append({
                 "description": sr.get('name'),
                 "linkage": sr.get('url'),
-                "protocol": 'WWW:LINK-1.0-http--downloaddata',
+                "protocol": 'WWW:LINK-1.0-http--link',
             })
 
     export2_append_items_handler(

@@ -260,9 +260,7 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
     template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
 
-    if not mount_nodes:
-        return # Skip the usual check; it's possible in this case that we don't have a mount node because it has already been removed.
-    # assert len(mount_nodes) == 1, 'mount_xpath must match one node, %s found' % len(mount_nodes) # Dev check for ensuring that data has xpath
+    assert len(mount_nodes) == 1, 'mount_xpath must match one node, %s found' % len(mount_nodes) # Dev check for ensuring that data has xpath
     assert len(template_nodes) > 0, 'template_xpath must match at least one node'
 
     mount_node = mount_nodes[0]
@@ -737,7 +735,7 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
             dtos.append({
                 "description": sr.get('name'),
                 "linkage": sr.get('url'),
-                "protocol": 'WWW:LINK-1.0-http--downloaddata',
+                "protocol": 'WWW:LINK-1.0-http--link',
             })
 
     export2_append_items_handler(
@@ -772,6 +770,17 @@ def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs,
             *xform[2]
         ]
     )
+
+    df_hit = get_dotted_path(data, "distributionInfo")[0]
+
+    if not df_hit:
+        df_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat', **xml_kwargs)[0]
+        df_node.getparent().remove(df_node)
+
+    # Delete the distribution node if we know it will be empty (no distributionFormat, transferOptions, or supportingResources)
+    if not (df_hit or to_hit or sr_hit):
+        di_node = xml_node.xpath('/mdb:MD_Metadata/mdb:distributionInfo', **xml_kwargs)[0]
+        di_node.getparent().remove(di_node)
 
 
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):

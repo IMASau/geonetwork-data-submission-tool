@@ -710,6 +710,7 @@
     "distributionInfo": {
       "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
       "type": "object",
+      "deleteWhenEmpty": false,
       "properties": {
         "distributionFormat": {
           "xpath": "mrd:distributionFormat",
@@ -1065,13 +1066,6 @@
           }
         ]
       ]
-    ],
-    [
-      "remove_element",
-      {
-        "data_path": "distributionInfo",
-        "node_xpath": "/mdb:MD_Metadata/mdb:distributionInfo"
-      }
     ],
     [
       "generateCredits",

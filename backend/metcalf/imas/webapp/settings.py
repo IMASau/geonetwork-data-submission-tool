@@ -35,7 +35,7 @@ DATABASES = {
 
 METCALF_FROM_EMAIL = ""
 
-BLACKLISTED_ATTACHMENT_EXTENSIONS = ["exe", "php"]
+BLACKLISTED_ATTACHMENT_EXTENSIONS = ["exe", "php", "html"]
 
 TIME_ZONE = "Australia/Hobart"
 

@@ -520,7 +520,7 @@
                                                    :config   config}))))
 
 (def blacklisted-attachment-extensions
-  #{"exe" "php"})
+  #{"exe" "php" "html"})
 
 (defn get-extension
   [file]

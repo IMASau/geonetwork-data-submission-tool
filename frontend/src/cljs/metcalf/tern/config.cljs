@@ -1116,7 +1116,7 @@
 
       [:div.tern-collapsible-group
        [:p
-        "Add a Person and/or an Organisation as the contact for the dataset. Select only one entry."]
+        "Add a Person and/or an Organisation as the contact for the dataset."]
 
        [m4/list-add-button
         {:form-id            [:form]

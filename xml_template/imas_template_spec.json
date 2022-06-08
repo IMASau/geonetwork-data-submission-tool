@@ -778,7 +778,7 @@
               },
               "name": {
                 "!docstring": "DataSource5",
-                "xpath": "cit:CI_OnlineResource/cit:name",
+                "xpath": "cit:CI_OnlineResource/cit:description",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
                 "rules": [
@@ -787,7 +787,7 @@
               },
               "description": {
                 "!docstring": "DataSource2",
-                "xpath": "cit:CI_OnlineResource/cit:description",
+                "xpath": "cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
                 "rules": [
@@ -1012,14 +1012,14 @@
         [
           "set_text",
           {
-            "data_path": "description",
+            "data_path": "name",
             "node_xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString"
           }
         ],
         [
           "remove_element",
           {
-            "data_path": "description",
+            "data_path": "name",
             "node_xpath": "cit:CI_OnlineResource/cit:description"
           }
         ],
@@ -1054,14 +1054,14 @@
         [
           "set_text",
           {
-            "data_path": "name",
+            "data_path": "description",
             "node_xpath": "cit:CI_OnlineResource/cit:name/gco:CharacterString"
           }
         ],
         [
           "remove_element",
           {
-            "data_path": "name",
+            "data_path": "description",
             "node_xpath": "cit:CI_OnlineResource/cit:name"
           }
         ]

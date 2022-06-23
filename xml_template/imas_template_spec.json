@@ -1074,6 +1074,13 @@
         "value_xpath": "gco:CharacterString",
         "data_path": "identificationInfo.credits"
       }
+    ],
+    [
+      "remove_element",
+      {
+        "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:extent",
+        "data_path": "identificationInfo.extents"
+      }
     ]
   ]
 }

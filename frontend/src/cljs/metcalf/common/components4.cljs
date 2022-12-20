@@ -972,7 +972,7 @@
   "Settings for async-select-option-simple component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
-   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/opt-ks       [:placeholder :added-path :item-defaults :random-uuid-value?]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path added-path]})
 
@@ -1070,7 +1070,7 @@
   "Settings for async-select-option-breadcrumb component"
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/opt-ks       [:placeholder :added-path :item-defaults :random-uuid-value?]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path breadcrumb-path]})
 

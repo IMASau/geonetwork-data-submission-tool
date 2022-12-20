@@ -14,8 +14,8 @@ from django_fsm import transition, FSMField
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
-from metcalf.common.emails import email_manager_submit_alert, email_manager_updated_alert, email_user_upload_alert
-from metcalf.imas.frontend.emails import email_user_submit_confirmation
+from metcalf.common.emails import email_manager_submit_alert, email_manager_updated_alert
+from metcalf.imas.frontend.emails import email_user_submit_confirmation, email_user_upload_alert
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
 from metcalf.common import spec4, xmlutils4

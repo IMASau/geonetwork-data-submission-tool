@@ -21,3 +21,20 @@ def email_user_submit_confirmation(doc):
               recipient_list=[doc.owner.email],
               fail_silently=False,
               html_message=render_to_string('account/email/email_user_submit_confirmation.html', context))
+
+def email_user_upload_alert(doc):
+    """
+    4. Record status changed to "uploaded" by Data Manager
+    """
+    site = get_site(doc)
+    context = {
+        'document': doc,
+        'site': site
+    }
+    context['portal_record_url'] = Template(site.sitecontent.portal_record_url).render(Context(context)).strip()
+    send_mail(subject="Your data is now available",
+              message=render_to_string('email_user_upload_alert.txt', context),
+              from_email=site.sitecontent.email,
+              recipient_list=[doc.owner.email],
+              fail_silently=False,
+              html_message=render_to_string('email_user_upload_alert.html', context))

@@ -9,7 +9,7 @@
      ;                ["identificationInfo" "topicCategory"]
      ;                ["identificationInfo" "status"]
      ;                ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
-   [:h2 "1. Data Identification"]
+   [:h2 "1: Data Identification"]
    [m4/form-group
     {:form-id    [:form]
      :data-path  ["identificationInfo" "title"]
@@ -41,10 +41,12 @@
                      "label" "climatology/meteorology/atmosphere"}
                     {"value" "oceans"
                      "label" "oceans"}
+                    {"value" "enviroment"
+                     "label" "environment"}
                     {"value" "geoscientificInformation"
-                     "label" "geoscientificInformation"}
+                     "label" "geoscientific information"}
                     {"value" "inlandWater"
-                     "label" "inlandWater"}]}]
+                     "label" "inland water"}]}]
     [m4/selection-list-simple
      {:form-id    [:form]
       :data-path  ["identificationInfo" "topicCategories"]
@@ -94,7 +96,7 @@
      ;  {:form-id    [:form]
      ;   :data-path  []
      ;   :data-paths [["identificationInfo" "abstract"]]}]
-   [:h2 "2. What"]
+   [:h2 "2: What"]
    [m4/form-group
     {:form-id    [:form]
      :data-path  ["identificationInfo" "abstract"]
@@ -183,7 +185,7 @@
      ;   :data-paths [["identificationInfo" "beginPosition"]
      ;                ["identificationInfo" "endPosition"]
      ;                ["identificationInfo" "samplingFrequency"]]}]
-   [:h2 "3. When was the data acquired?"]
+   [:h2 "3: When was the data acquired?"]
    [m4/form-group
     {:form-id   [:form]
      :data-path ["identificationInfo" "extents" "beginPosition"]
@@ -207,7 +209,7 @@
      ;   :data-paths [["identificationInfo" "geographicElement" "boxes"]
      ;                ["identificationInfo" "verticalElement" "minimumValue"]
      ;                ["identificationInfo" "verticalElement" "maximumValue"]]}]
-   [:h2 "4. Where"]
+   [:h2 "4: Where"]
    [:h3 "Geographic Coverage"]
    [m4/checkbox-field
     {:form-id   [:form]
@@ -359,7 +361,7 @@
      ;   :data-path  []
      ;   :data-paths [["identificationInfo" "citedResponsibleParty"]
      ;                ["identificationInfo" "pointOfContact"]]}]
-   [:h2 "6. Who"]
+   [:h2 "6: Who"]
    [m4/form-group
     {:form-id   [:form]
      :data-path ["pointOfContact"]
@@ -680,7 +682,7 @@
                     "value" "CC-BY"}
                    {"label" "Creative Commons Attribution-NonCommercial 4.0 International License"
                     "value" "CC-BY-NC"}
-                   {"label" "Other constraints"
+                   {"label" "Creative Commons Attribution 4.0 International License + ADDITIONAL LICENSE REQUIREMENTS (specify below)"
                     "value" "OTHER"
                     "other" true}]}]]
 
@@ -771,7 +773,7 @@
     [m4/input-field
      {:form-id     [:form]
       :data-path   ["distributionInfo" "distributionFormat" "edition"]
-      :placeholder "Date format date or version if applicable"}]]]
+      :placeholder "Date or version, if applicable"}]]]
 
   :useLimitations/user-defined-entry-form
   [:div
@@ -1055,7 +1057,7 @@
       :label-path ["label"]
       :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
                    {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
-                   {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
+                   {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other online data source"}]}]]
 
    [m4/inline-form-group
     {:form-id   ?form-id
@@ -1077,7 +1079,7 @@
   [:div
    [:h2 "9: Lodge Metadata Draft"]
    [:div.lodge-section
-    [:p "Are you finished? Use this page to lodge your completed metadata record."]
+    [:p "Use this page to lodge your completed metadata record."]
     [:p "Any difficulties?  Please contact " [m4/mailto-data-manager-link]]
     [:p "The Data Manager will be notified of your submission and will be in contact
               if any further information is required. Once approved, your data will be archived
@@ -1088,7 +1090,7 @@
     [m4/checkbox-field
      {:form-id [:form]
       :data-path ["doiRequested"]
-      :label "Check if you would like a DOI minted for this dataset"}]
+      :label "This dataset is related to a publication and requires a DOI"}]
     [m4/lodge-button {:form-id [:form]}]
     [m4/lodge-status-info {:form-id [:form]}]
     [:div.user-export
@@ -1100,8 +1102,8 @@
         tabs, but not files you have uploaded."]
      [:p
       "Please note: this XML file is not the recommended way to share your metadata.
-        We want you to submit your data via 'lodging' the information.
-        This permits multi-user access via the portal in a more friendly format."]]]]}
+        Your record is submitted for publication via 'lodging' the information.
+        XML export of records is intended for advanced users only."]]]]}
 
  :low-code/edit-tabs
  [{:id         :data-identification

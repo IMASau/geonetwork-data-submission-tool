@@ -872,6 +872,8 @@
         :uri             "/api/parametername"
         :label-path      ["Name"]
         :value-path      ["URI"]
+        :random-uuid-value? true
+        :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."}]]
      [m4/item-dialog-button
@@ -936,6 +938,8 @@
         :uri             "/api/parameterinstrument"
         :label-path      ["Name"]
         :value-path      ["URI"]
+        :random-uuid-value? true
+        :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."}]]
      [m4/item-dialog-button
@@ -964,6 +968,8 @@
         :uri             "/api/parameterplatform"
         :label-path      ["Name"]
         :value-path      ["URI"]
+        :random-uuid-value? true
+        :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."}]]
      [m4/item-dialog-button

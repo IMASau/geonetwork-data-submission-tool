@@ -10,10 +10,10 @@ class SiteContent(AbstractSiteContent):
                   "be high res so it looks good and it needs to be fairly dark " \
                   "so that the copy has good contrast and can be easily read. We "
                   "will optimise the size so it's not too heavy.")
-    homepage_abstract = models.CharField(max_length=512, blank=True)
-    code_location_name = models.CharField(max_length=32, blank=True)
-    code_location_url = models.URLField(blank=True)
-    homepage_acknowledgements = models.CharField(max_length=512, blank=True)
+    homepage_abstract = models.CharField(max_length=512, blank=True, null=False)
+    code_location_name = models.CharField(max_length=32, blank=True, null=False)
+    code_location_url = models.URLField(blank=True, null=False)
+    homepage_acknowledgements = models.CharField(max_length=512, blank=True, null=False)
 
 
 # Describes data sources (aka API endpoints)

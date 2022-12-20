@@ -204,7 +204,7 @@ class AbstractSiteContent(models.Model):
     homepage_image_credit_name = models.CharField(max_length=128, default="XXX")
     homepage_image_credit_url = models.URLField(blank=True, null=True)
 
-    geonetwork_url = models.URLField(blank=False, null=False)
+    geonetwork_url = models.URLField(blank=True, null=False)
 
     class Meta:
         abstract = True

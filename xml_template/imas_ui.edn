@@ -911,6 +911,8 @@
         :uri         "/api/parameterunit"
         :label-path  ["Name"]
         :value-path  ["URI"]
+        :random-uuid-value? true
+        :added-path  ["isUserDefined"]
         :placeholder "Select..."}]]
      [m4/item-dialog-button
       {:form-id            ?form-id

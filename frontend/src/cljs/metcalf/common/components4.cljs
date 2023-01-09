@@ -616,12 +616,13 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [value disabled show-errors? is-hidden]} props]
+        {:keys [value disabled show-errors? is-hidden dropdown-nav?]} props]
     (when-not is-hidden
       [ui-controls/DateField2
        {:value    value
         :disabled disabled
         :hasError show-errors?
+        :hasDropdownNav dropdown-nav?
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
 (defn select-option-simple-settings

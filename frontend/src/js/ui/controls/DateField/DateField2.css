@@ -7,3 +7,10 @@
     margin: 3px;
     padding: 0 7px;
 }
+
+.DayPicker-Caption > select {
+    border: none;
+    background: none;
+    height: 100%;
+    font-weight: 500;
+}

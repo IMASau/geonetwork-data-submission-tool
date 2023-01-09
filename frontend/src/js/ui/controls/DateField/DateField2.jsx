@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, InputGroup, Intent, Popover} from '@blueprintjs/core';
+import { Button, InputGroup, Intent, Popover } from '@blueprintjs/core';
 import * as BPDateTime from '@blueprintjs/datetime';
 import moment from 'moment';
-import {useCachedState} from "../utils";
+import { useCachedState } from "../utils";
 import DayPicker from 'react-day-picker';
 
 function isEmpty(s) {
@@ -14,7 +14,7 @@ function isValidDate(d) {
     return d instanceof Date && !isNaN(d);
 }
 
-function getMomentFormatter({ format, valueFormat}) {
+function getMomentFormatter({ format, valueFormat }) {
     const formatDate = function (date) {
         try {
             return moment(date).format(format)
@@ -47,9 +47,38 @@ function getMomentFormatter({ format, valueFormat}) {
     return { formatDate, parseDate, formatValue, parseValue, placeholder }
 }
 
+const DateDropdownCaptionElement = ({ date, localeUtils, onChange }) => {
+    const handleChange = function handleChange(e) {
+        const { year, month } = e.target.form;
+        onChange(new Date(year.value, month.value));
+    };
+
+    const toYear = Math.max((new Date()).getFullYear(), date.getFullYear())
+    const years = Array.from({ length: toYear - 1899 }, (_, k) => k + 1900)
+
+    // return <div className="DayPicker-Caption">Test</div>
+
+    return <form className="DayPicker-Caption">
+        <select name="month" onChange={handleChange} value={date.getMonth()}>
+            {localeUtils.getMonths().map((month, i) => (
+                <option key={month} value={i}>
+                    {month}
+                </option>
+            ))}
+        </select>
+        <select name="year" onChange={handleChange} value={date.getFullYear()}>
+            {years.map(year => (
+                <option key={year} value={year}>
+                    {year}
+                </option>
+            ))}
+        </select>
+    </form>;
+}
+
 // TODO: how to handle junk-in values?
-export const DateField2 = ({value, disabled, onChange, hasError}) => {
-    const {formatDate, parseDate, parseValue, formatValue, placeholder} = getMomentFormatter({
+export const DateField2 = ({ value, disabled, onChange, hasError, hasDropdownNav }) => {
+    const { formatDate, parseDate, parseValue, formatValue, placeholder } = getMomentFormatter({
         format: 'DD/MM/YYYY',
         valueFormat: 'YYYY-MM-DD',
     })
@@ -72,6 +101,8 @@ export const DateField2 = ({value, disabled, onChange, hasError}) => {
         }
     }
 
+    const [month, setMonth] = React.useState(dateValue);
+
     const calendarButton = (
         <Popover
             disabled={disabled}
@@ -88,8 +119,17 @@ export const DateField2 = ({value, disabled, onChange, hasError}) => {
             <div>
                 <DayPicker
                     selectedDays={dateValue}
-                    month={dateValue}
+                    month={hasDropdownNav ? month : dateValue}
                     onDayClick={(day, modifiers, e) => onChange(formatValue(day))}
+                    {...(hasDropdownNav
+                        ? {captionElement: ({ date, localeUtils }) => (
+                            <DateDropdownCaptionElement
+                                date={date}
+                                localeUtils={localeUtils}
+                                onChange={setMonth}
+                            />
+                        )} : {}
+                    )}
                 />
             </div>
         </Popover>

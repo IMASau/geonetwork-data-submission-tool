@@ -24,7 +24,8 @@
      :label     "Date of record creation"}
     [m4/date-field2
      {:form-id   [:form]
-      :data-path ["identificationInfo" "dateCreation"]}]]
+      :data-path ["identificationInfo" "dateCreation"]
+      :dropdown-nav? true}]]
    [m4/form-group
     {:form-id   [:form]
      :data-path ["identificationInfo" "topicCategories"]
@@ -192,14 +193,16 @@
      :label     "Start date"}
     [m4/date-field2
      {:form-id   [:form]
-      :data-path ["identificationInfo" "extents" "beginPosition"]}]]
+      :data-path ["identificationInfo" "extents" "beginPosition"]
+      :dropdown-nav? true}]]
    [m4/form-group
     {:form-id   [:form]
      :data-path ["identificationInfo" "extents" "endPosition"]
      :label     "End date"}
     [m4/date-field2
      {:form-id   [:form]
-      :data-path ["identificationInfo" "extents" "endPosition"]}]]]
+      :data-path ["identificationInfo" "extents" "endPosition"]
+      :dropdown-nav? true}]]]
 
   :where
   [:div

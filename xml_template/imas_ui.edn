@@ -531,7 +531,8 @@
     [m4/async-simple-item-option-picker
      {:form-id     ?form-id
       :data-path   ?data-path
-      :data-mapper [{:get-path ["prefLabel"] :set-path ["organisation" "name"]}
+      :data-mapper [{:get-path ["uri"] :set-path ["organisation" "uri"]}
+                    {:get-path ["prefLabel"] :set-path ["organisation" "name"]}
                     {:get-path ["deliveryPoint"] :set-path ["contact" "deliveryPoint"]}
                     {:get-path ["deliveryPoint2"] :set-path ["contact" "deliveryPoint2"]}
                     {:get-path ["city"] :set-path ["contact" "city"]}

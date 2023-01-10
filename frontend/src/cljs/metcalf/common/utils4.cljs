@@ -295,3 +295,15 @@
    (when (> (count items) 2) ",")
    (when (> (count items) 1) " and ")
    (last items)))
+
+(defn unmapped-value
+  "Unmap a value that's been mapped using a data-mapper"
+  [value {:keys [value-path label-path data-mapper]}]
+  (let [mapper-value-path (:set-path (first (filter #(= (:get-path %) value-path) data-mapper)))
+        mapper-label-path (:set-path (first (filter #(= (:get-path %) label-path) data-mapper)))]
+    (if data-mapper
+      (when (get-in value mapper-value-path)
+        (-> {}
+            (assoc-in value-path (get-in value mapper-value-path))
+            (assoc-in label-path (get-in value mapper-label-path))))
+      value)))

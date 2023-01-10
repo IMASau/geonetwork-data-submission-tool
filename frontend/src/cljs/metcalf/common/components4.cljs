@@ -1698,10 +1698,11 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
-       {:value       nil
+       {:value       (utils4/unmapped-value value props)
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?

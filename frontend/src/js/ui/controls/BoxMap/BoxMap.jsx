@@ -30,6 +30,11 @@ function getMinOfArray(arr) {
     return arr.length ? Math.min.apply(null, arr) : null;
 }
 
+function processElements(elements) {
+    // ensures west bound is greater than east bound for purposes of map bounds and rectangle elements
+    elements.forEach(element => element.westBoundLongitude += element.westBoundLongitude < element.eastBoundLongitude ? 360 : 0);
+}
+
 function elementsToExtents(elements) {
     var north = getMaxOfArray(elements.map((ele) => ele.northBoundLatitude));
     var west = getMinOfArray(elements.map((ele) => ele.westBoundLongitude));
@@ -104,12 +109,22 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
     const defaultCenter = [-28, 134];
 
+    processElements(elements);
     const bounds = elementsToExtents(elements);
     const setCenter = bounds && bounds.north == bounds.south && bounds.east == bounds.west;
     const setBounds = bounds && !setCenter;
 
     const handleChange = () => {
-        onChange(featureGroupRef.current.leafletElement.toGeoJSON())
+        const geoJson = featureGroupRef.current.leafletElement.toGeoJSON()
+
+        // wrap longitude values to -180 +180 range
+        geoJson.features.forEach(feature => {
+            const coordinates = feature.geometry.coordinates[0];
+            for (let i = 0; i < coordinates.length; i++)
+                coordinates[i][0] = (coordinates[i][0] % 360 + 540) % 360 - 180;
+        });
+
+        onChange(geoJson);
     };
 
     const [useSatellite, setUseSatellite] = React.useState(false);

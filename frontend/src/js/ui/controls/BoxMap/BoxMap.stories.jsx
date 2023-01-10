@@ -2,7 +2,7 @@ import React from 'react';
 
 import {BoxMap} from './BoxMap';
 import {EditDialog} from '../EditDialog/EditDialog';
-import './boxmap.css';
+import './BoxMap.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 

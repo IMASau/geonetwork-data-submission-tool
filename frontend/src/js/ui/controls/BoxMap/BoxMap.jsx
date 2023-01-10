@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FeatureGroup, Map, Marker, Rectangle, TileLayer } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
+import Control from 'react-leaflet-control';
+import { Icon } from '@blueprintjs/core';
 
 
 function mapToBounds({ west, east, south, north }) {
@@ -88,6 +90,13 @@ const BaseLayer = () => (
     />
 )
 
+const SatelliteBaseLayer = () => (
+    <TileLayer
+        url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+        attribution="Map data ©2015 Google"
+    />
+)
+
 // TODO: disabled mode?
 export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
@@ -102,6 +111,8 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
     const handleChange = () => {
         onChange(featureGroupRef.current.leafletElement.toGeoJSON())
     };
+
+    const [useSatellite, setUseSatellite] = React.useState(false);
 
     return (
         <Map
@@ -118,7 +129,7 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
             closePopupOnClick={false}
             bounds={setBounds ? [[bounds.south, bounds.west], [bounds.north, bounds.east]] : undefined}
         >
-            <BaseLayer />
+            {useSatellite ? <SatelliteBaseLayer /> : <BaseLayer />}
             <FeatureGroup
                 ref={featureGroupRef}
                 key={"featureGroup" + tickId}
@@ -144,6 +155,19 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
                 />
                 {elements.map(renderElement)}
             </FeatureGroup>
+            <Control
+                position="topleft"
+                className="leaflet-bar"
+            >
+                <a
+                    onClick={e => {
+                        e.preventDefault();
+                        setUseSatellite(!useSatellite);
+                    }}
+                >
+                    <Icon icon={useSatellite ? "satellite" : "map"} size={14} />
+                </a>
+            </Control>
         </Map>
     );
 };

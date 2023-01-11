@@ -146,21 +146,35 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
-export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur, noOptionsMessage}) {
+export function AsyncSelectField({ value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur, noOptionsMessage, onAdd }) {
     const defaultOptions = !disabled
-    const isAdded = getAdded ? getAdded(value): false;
+    const isAdded = getAdded ? getAdded(value) : false;
+    const selectRef = React.useRef(null);
+
     return (
         <AsyncSelect
-            styles={getReactSelectCustomStyles({hasError, isAdded})}
-            components={getReactSelectComponents({Option})}
+            ref={selectRef}
+            styles={getReactSelectCustomStyles({ hasError, isAdded })}
+            components={getReactSelectComponents({ Option })}
             getOptionValue={getValue}
             getOptionLabel={getLabel}
             value={value}
             loadOptions={loadOptions}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
-            onBlur={() => onBlur ? onBlur(): null}
-            noOptionsMessage={() => noOptionsMessage ? noOptionsMessage() : "No options"}
+            onBlur={() => onBlur ? onBlur() : null}
+            noOptionsMessage={() =>
+                noOptionsMessage
+                ? noOptionsMessage()
+                : (
+                    onAdd
+                    ? <span>
+                        <span>No matches for the search term – </span>
+                        <button className="SelectFieldAction" onClick={() => onAdd(selectRef.current.inputRef.value)} disabled={disabled}>[Add]</button>
+                    </span>
+                    : "No options"
+                )
+            }
             isClearable={true}
             isDisabled={disabled}
             defaultOptions={defaultOptions}
@@ -182,6 +196,7 @@ AsyncSelectField.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     noOptionsMessage: PropTypes.func,
+    onAdd: PropTypes.func,
 }
 
 export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur}) {
@@ -290,6 +305,7 @@ AsyncSimpleSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
     getAdded: PropTypes.func,
     noOptionsMessage: PropTypes.func,
+    onAdd: PropTypes.func,
 }
 
 export function AsyncAddSelectField(args) {

@@ -182,7 +182,6 @@
        'm4/async-select-option-simple          {:view #'components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-add-select-option             {:view #'components4/async-add-select-option :init components4/async-add-select-option-settings}
        'm4/async-select-option-breadcrumb      {:view #'components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
-       'm4/async-add-select-option-breadcrumb  {:view #'components4/async-add-select-option-breadcrumb :init components4/async-add-select-option-breadcrumb-settings}
        'm4/async-select-option-columns         {:view #'components4/async-select-option-columns :init components4/async-select-option-columns-settings}
        ;'m4/async-select-value                  {:view #'components4/async-select-value :init components4/async-select-value-settings}
        'm4/boxmap-field                        {:view #'components4/boxmap-field :init components4/boxmap-field-settings}
@@ -1100,7 +1099,7 @@
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-add-select-option-breadcrumb
+        [m4/async-select-option-breadcrumb
          {:form-id         ?form-id
           :data-path       [?data-path "longName_term"]
           :uri             "/api/parametername"
@@ -1164,7 +1163,7 @@
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-add-select-option-breadcrumb
+        [m4/async-select-option-breadcrumb
          {:form-id         ?form-id
           :data-path       [?data-path "instrument_term"]
           :uri             "/api/parameterinstrument"
@@ -1192,7 +1191,7 @@
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-add-select-option-breadcrumb
+        [m4/async-select-option-breadcrumb
          {:form-id         ?form-id
           :data-path       [?data-path "platform_term"]
           :uri             "/api/parameterplatform"

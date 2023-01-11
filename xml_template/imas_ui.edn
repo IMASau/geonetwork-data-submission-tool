@@ -870,7 +870,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-add-select-option-breadcrumb
+      [m4/async-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "longName_term"]
         :uri             "/api/parametername"
@@ -879,7 +879,8 @@
         :random-uuid-value? true
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
-        :placeholder     "Select..."}]]
+        :placeholder     "Select..."
+        :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
        :data-path          [?data-path "longName_term"]
@@ -938,7 +939,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-add-select-option-breadcrumb
+      [m4/async-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "instrument_term"]
         :uri             "/api/parameterinstrument"
@@ -947,7 +948,8 @@
         :random-uuid-value? true
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
-        :placeholder     "Select..."}]]
+        :placeholder     "Select..."
+        :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
        :data-path          [?data-path "instrument_term"]
@@ -968,7 +970,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-add-select-option-breadcrumb
+      [m4/async-select-option-breadcrumb
        {:form-id         ?form-id
         :data-path       [?data-path "platform_term"]
         :uri             "/api/parameterplatform"
@@ -977,7 +979,8 @@
         :random-uuid-value? true
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
-        :placeholder     "Select..."}]]
+        :placeholder     "Select..."
+        :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
        :data-path          [?data-path "platform_term"]

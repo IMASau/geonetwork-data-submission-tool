@@ -910,7 +910,7 @@
      :added-path ["isUserDefined"]}
     [:div.bp3-control-group
      [:div.bp3-fill
-      [m4/async-add-select-option
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
         :uri         "/api/parameterunit"
@@ -918,7 +918,8 @@
         :value-path  ["URI"]
         :random-uuid-value? true
         :added-path  ["isUserDefined"]
-        :placeholder "Select..."}]]
+        :placeholder "Select..."
+        :add-dialog? true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
        :data-path          [?data-path "unit_term"]

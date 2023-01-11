@@ -303,18 +303,18 @@
     mapped-path))
 
 (defn mapped-value-path
-  [{:keys [value-path data-mapper] :as _props}]
+  [{:keys [value-path data-mapper] :as _config}]
   (mapped-path value-path data-mapper))
 
 (defn mapped-label-path
-  [{:keys [label-path data-mapper] :as _props}]
+  [{:keys [label-path data-mapper] :as _config}]
   (mapped-path label-path data-mapper))
 
 (defn unmapped-value
   "Unmap a value that's been mapped using a data-mapper"
-  [value {:keys [value-path label-path data-mapper] :as props}]
-  (let [mapped-value-path (mapped-value-path props)
-        mapped-label-path (mapped-label-path props)]
+  [value {:keys [value-path label-path data-mapper] :as config}]
+  (let [mapped-value-path (mapped-value-path config)
+        mapped-label-path (mapped-label-path config)]
     (if data-mapper
       (when (get-in value mapped-value-path)
         (-> {}

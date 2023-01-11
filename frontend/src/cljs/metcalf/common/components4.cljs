@@ -1699,13 +1699,15 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props]
+        {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props
+        label-config (update config :data-path #(vec (concat % (utils4/mapped-label-path props))))]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
-       {:value       (utils4/unmapped-value value props)
+       {:value       (utils4/unmapped-value value config)
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?
+        :onAdd       #(rf/dispatch [::value-changed label-config %])
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)

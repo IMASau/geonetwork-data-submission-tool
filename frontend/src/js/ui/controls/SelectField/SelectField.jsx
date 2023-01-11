@@ -170,7 +170,16 @@ export function AsyncSelectField({ value, loadOptions, hasError, disabled, place
                     onAdd
                     ? <span>
                         <span>No matches for the search term – </span>
-                        <button className="SelectFieldAction" onClick={() => onAdd(selectRef.current.inputRef.value)} disabled={disabled}>[Add]</button>
+                        <button
+                            className="SelectFieldAction"
+                            onClick={() => {
+                                const text = selectRef.current.inputRef.value;
+                                onChange(null);
+                                selectRef.current.blur();
+                                onAdd(text);
+                            }}
+                            disabled={disabled}
+                        >[Add]</button>
                     </span>
                     : "No options"
                 )

@@ -204,13 +204,13 @@
 (defmethod geometry->box-value "Polygon"
   [{:keys [coordinates]}]
   (let [[rect] coordinates
-        lngs (map first rect)
-        lats (map second rect)]
+        north-east (get rect 2)
+        south-west (get rect 0)]
     (s/assert some? rect)
-    {"northBoundLatitude" (s/assert number? (apply max lats))
-     "southBoundLatitude" (s/assert number? (apply min lats))
-     "eastBoundLongitude" (s/assert number? (apply max lngs))
-     "westBoundLongitude" (s/assert number? (apply min lngs))}))
+    {"northBoundLatitude" (s/assert number? (get north-east 1))
+     "southBoundLatitude" (s/assert number? (get south-west 1))
+     "eastBoundLongitude" (s/assert number? (get north-east 0))
+     "westBoundLongitude" (s/assert number? (get south-west 0))}))
 
 (defn memoize-to-atom
   "clojure.core/memoize but backed by explicit atom"

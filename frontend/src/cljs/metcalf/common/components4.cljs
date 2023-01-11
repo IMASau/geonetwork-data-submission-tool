@@ -926,7 +926,7 @@
   "Settings for async-select-option-simple component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
-   ::low-code4/opt-ks       [:placeholder :added-path :add-dialog?]
+   ::low-code4/opt-ks       [:placeholder :added-path :allow-add? :add-dialog?]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path added-path]})
 
@@ -941,6 +941,8 @@
    * label-path (vector) - path to label is in the option data.  Used to render options and selected value.
    * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) - text to displayed when no option is selected.
+   * allow-add? (boolean) - determines whether there should be an option to add from the input text in the select field
+   * add-dialog? (boolean) - determines whether the onAdd option should open an item dialog, or directly update the label value
 
    Props to configure the data source
    * uri (string) - the resource that you wish to fetch data from
@@ -955,7 +957,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [value-path label-path added-path placeholder disabled show-errors? is-hidden add-dialog?]} props
+        {:keys [value-path label-path added-path placeholder disabled show-errors? is-hidden allow-add? add-dialog?]} props
         label-config (update config :data-path #(vec (concat % (utils4/mapped-label-path props))))]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
@@ -969,13 +971,13 @@
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
         :onBlur      #(rf/dispatch [::input-blur config])
-        :onAdd       #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %]))}])))
+        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))}])))
 
 (defn async-select-option-breadcrumb-settings
   "Settings for async-select-option-breadcrumb component"
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code4/opt-ks       [:placeholder :added-path :add-dialog?]
+   ::low-code4/opt-ks       [:placeholder :added-path :allow-add? :add-dialog?]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path breadcrumb-path]})
 
@@ -992,6 +994,7 @@
    * breadcrumb-path (vector) - path to breadcrumbs in the option data.  Breadcrumbs data must be a list of string.
    * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) - text to displayed when no option is selected.
+   * allow-add? (boolean) - determines whether there should be an option to add from the input text in the select field
    * add-dialog? (boolean) - determines whether the onAdd option should open an item dialog, or directly update the label value
 
    Props to configure the data source
@@ -1007,7 +1010,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder disabled is-hidden value-path label-path breadcrumb-path added-path show-errors? add-dialog?]} props
+        {:keys [placeholder disabled is-hidden value-path label-path breadcrumb-path added-path show-errors? allow-add? add-dialog?]} props
         label-config (update config :data-path #(vec (concat % (utils4/mapped-label-path props))))]
     (when-not is-hidden
       [ui-controls/AsyncBreadcrumbSelectField
@@ -1020,7 +1023,7 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      show-errors?
-        :onAdd         #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %]))
+        :onAdd         (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
         :onBlur        #(rf/dispatch [::input-blur config])}])))
 
@@ -1591,6 +1594,8 @@
    * label-path (vector) - path to label is in the option data.  Used to render options.
    * placeholder (string) - text to displayed when no option is selected.
    * data-mapper [{:get-path :set-path}..] - defines how selected option is used to update form data
+   * allow-add? (boolean) - determines whether there should be an option to add from the input text in the select field
+   * add-dialog? (boolean) - determines whether the onAdd option should open an item dialog, or directly update the label value
 
    Props to configure the data source
    * uri (string) - the resource that you wish to fetch data from
@@ -1605,7 +1610,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props
+        {:keys [placeholder disabled is-hidden value-path label-path show-errors? allow-add? add-dialog?]} props
         label-config (update config :data-path #(vec (concat % (utils4/mapped-label-path props))))]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
@@ -1613,7 +1618,7 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?
-        :onAdd       #(rf/dispatch [::value-changed label-config %])
+        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)

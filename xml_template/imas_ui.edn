@@ -542,7 +542,8 @@
       :uri         "/api/institution/"
       :label-path  ["prefLabel"]
       :value-path  ["uri"]
-      :placeholder "Search for an organisation"}]]
+      :placeholder "Search for an organisation"
+      :allow-add?  true}]]
 
    [m4/inline-form-group
     {:form-id   ?form-id
@@ -880,6 +881,7 @@
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."
+        :allow-add?      true
         :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
@@ -919,6 +921,7 @@
         :random-uuid-value? true
         :added-path  ["isUserDefined"]
         :placeholder "Select..."
+        :allow-add?  true
         :add-dialog? true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
@@ -950,6 +953,7 @@
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."
+        :allow-add?      true
         :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id
@@ -981,6 +985,7 @@
         :added-path      ["isUserDefined"]
         :breadcrumb-path ["breadcrumbs"]
         :placeholder     "Select..."
+        :allow-add?      true
         :add-dialog?     true}]]
      [m4/item-dialog-button
       {:form-id            ?form-id

@@ -296,14 +296,28 @@
    (when (> (count items) 1) " and ")
    (last items)))
 
+(defn mapped-path
+  "Get the mapped path from the data-mapper"
+  [path data-mapper]
+  (when-let [mapped-path (:set-path (first (filter #(= (:get-path %) path) data-mapper)))]
+    mapped-path))
+
+(defn mapped-value-path
+  [{:keys [value-path data-mapper] :as _config}]
+  (mapped-path value-path data-mapper))
+
+(defn mapped-label-path
+  [{:keys [label-path data-mapper] :as _config}]
+  (mapped-path label-path data-mapper))
+
 (defn unmapped-value
   "Unmap a value that's been mapped using a data-mapper"
-  [value {:keys [value-path label-path data-mapper]}]
-  (let [mapper-value-path (:set-path (first (filter #(= (:get-path %) value-path) data-mapper)))
-        mapper-label-path (:set-path (first (filter #(= (:get-path %) label-path) data-mapper)))]
+  [value {:keys [value-path label-path data-mapper] :as config}]
+  (let [mapped-value-path (mapped-value-path config)
+        mapped-label-path (mapped-label-path config)]
     (if data-mapper
-      (when (get-in value mapper-value-path)
+      (when (get-in value mapped-value-path)
         (-> {}
-            (assoc-in value-path (get-in value mapper-value-path))
-            (assoc-in label-path (get-in value mapper-label-path))))
+            (assoc-in value-path (get-in value mapped-value-path))
+            (assoc-in label-path (get-in value mapped-label-path))))
       value)))

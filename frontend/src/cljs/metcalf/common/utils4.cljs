@@ -299,8 +299,8 @@
 (defn mapped-path
   "Get the mapped path from the data-mapper"
   [path data-mapper]
-  (when-let [mapped-path (:set-path (first (filter #(= (:get-path %) path) data-mapper)))]
-    mapped-path))
+  (if-let [mapped-path (:set-path (first (filter #(= (:get-path %) path) data-mapper)))]
+    mapped-path path))
 
 (defn mapped-value-path
   [{:keys [value-path data-mapper] :as _config}]

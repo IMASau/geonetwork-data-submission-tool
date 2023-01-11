@@ -971,7 +971,7 @@
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
         :onBlur      #(rf/dispatch [::input-blur config])
-        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))}])))
+        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config %] [::value-changed label-config %])))}])))
 
 (defn async-select-option-breadcrumb-settings
   "Settings for async-select-option-breadcrumb component"
@@ -1023,7 +1023,7 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      show-errors?
-        :onAdd         (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))
+        :onAdd         (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config %] [::value-changed label-config %])))
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
         :onBlur        #(rf/dispatch [::input-blur config])}])))
 
@@ -1618,7 +1618,7 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?
-        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config] [::value-changed label-config %])))
+        :onAdd       (when allow-add? #(rf/dispatch (if add-dialog? [::item-dialog-button-add-click config %] [::value-changed label-config %])))
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)

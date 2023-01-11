@@ -32,7 +32,7 @@ function getMinOfArray(arr) {
 
 function processElements(elements) {
     // ensures west bound is greater than east bound for purposes of map bounds and rectangle elements
-    elements.forEach(element => element.westBoundLongitude += element.westBoundLongitude < element.eastBoundLongitude ? 360 : 0);
+    elements.forEach(element => element.eastBoundLongitude += element.westBoundLongitude > element.eastBoundLongitude ? 360 : 0);
 }
 
 function elementsToExtents(elements) {
@@ -121,7 +121,7 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
         geoJson.features.forEach(feature => {
             const coordinates = feature.geometry.coordinates[0];
             for (let i = 0; i < coordinates.length; i++)
-                coordinates[i][0] = (coordinates[i][0] % 360 + 540) % 360 - 180;
+                coordinates[i][0] = Math.round(((coordinates[i][0] % 360 + 540) % 360 - 180) * 1000000) / 1000000;
         });
 
         onChange(geoJson);

@@ -58,7 +58,8 @@ load_index qudt_units
 load_index shared_instruments
 load_index shared_org
 load_index shared_parameters
-load_index shared_people
+# Removed for privacy concerns
+# load_index shared_people
 load_index shared_platforms
 load_index shared_instrument_types
 load_index shared_anzsrc_keywords

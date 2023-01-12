@@ -58,7 +58,8 @@ dump_index $AUTH_SHARED shared_platforms
 dump_index $AUTH_SHARED shared_parameters
 dump_index $AUTH_SHARED shared_instrument_types
 dump_index $AUTH_SHARED shared_instruments
-dump_index $AUTH_SHARED shared_people
+# Removed for privacy concerns
+# dump_index $AUTH_SHARED shared_people
 dump_index $AUTH_SHARED shared_anzsrc_for_keywords
 dump_index $AUTH_SHARED shared_aus_plant_name
 dump_index $AUTH_SHARED shared_faunal_name

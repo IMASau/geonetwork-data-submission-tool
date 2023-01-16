@@ -106,6 +106,8 @@ const SatelliteBaseLayer = () => (
 export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
     const featureGroupRef = React.useRef(null);
+    const editControlRef = React.useRef(null);
+    const [useSatellite, setUseSatellite] = React.useState(false);
 
     const defaultCenter = [-28, 134];
 
@@ -115,6 +117,7 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
     const setBounds = bounds && !setCenter;
 
     const handleChange = () => {
+        console.log("handleChange");
         const geoJson = featureGroupRef.current.leafletElement.toGeoJSON()
 
         // wrap longitude values to -180 +180 range
@@ -126,8 +129,6 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
         onChange(geoJson);
     };
-
-    const [useSatellite, setUseSatellite] = React.useState(false);
 
     return (
         <Map
@@ -146,10 +147,70 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
         >
             {useSatellite ? <SatelliteBaseLayer /> : <BaseLayer />}
             <FeatureGroup
-                ref={featureGroupRef}
+                ref={ref => {
+                    if (ref) {
+                        const eventsAdded = featureGroupRef.current && ref.leafletElement == featureGroupRef.current.leafletElement;
+                        featureGroupRef.current = ref;
+
+                        if (!eventsAdded) {
+                            const featureGroup = ref.leafletElement;
+                            featureGroup.getLayers().forEach(
+                                layer => {
+                                    layer.on(
+                                        "click",
+                                        e => editControlRef.current.leafletElement._toolbars.edit.getModeHandlers()[0].handler._enableLayerEdit(layer)
+                                    );
+                                    layer.on(
+                                        "edit",
+                                        e => {
+                                            console.log("edit", layer);
+                                            layer.editing.disable();
+                                            handleChange();
+                                        }
+                                    );
+                                    layer.on(
+                                        "dragend",
+                                        () => {
+                                            console.log("dragend", layer);
+                                            layer.editing.disable();
+                                            handleChange();
+                                        }
+                                    );
+                                }
+                            );
+                            featureGroup.on(
+                                "layeradd",
+                                e => {
+                                    const layer = e.layer;
+                                    layer.on(
+                                        "click",
+                                        e => editControlRef.current.leafletElement._toolbars.edit.getModeHandlers()[0].handler._enableLayerEdit(layer)
+                                    );
+                                    layer.on(
+                                        "edit",
+                                        e => {
+                                            console.log("edit", layer);
+                                            layer.editing.disable();
+                                            handleChange();
+                                        }
+                                    );
+                                    layer.on(
+                                        "dragend",
+                                        () => {
+                                            console.log("dragend", layer);
+                                            layer.editing.disable();
+                                            handleChange();
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    }
+                }}
                 key={"featureGroup" + tickId}
             >
                 <EditControl
+                    ref={editControlRef}
                     position="topright"
                     draw={{
                         "polyline": false,
@@ -160,7 +221,7 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
                         "circlemarker": false
                     }}
                     edit={{
-                        edit: {},
+                        edit: false,
                         remove: {},
                         poly: {}
                     }}

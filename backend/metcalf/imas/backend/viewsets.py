@@ -89,7 +89,7 @@ class ParameterNameNodeFilter(django_filters.FilterSet):
 
 # TODO: Remove. Not used anymore since we pull TERN parameters from Elasticsearch.
 class ParameterNameViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterName.objects.all().order_by('Name')
+    queryset = models.ParameterName.objects.all().order_by('Name').filter(is_selectable=True)
     serializer_class = serializers.ParameterNameSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     # filter_class = ParameterNameNodeFilter
@@ -110,7 +110,7 @@ class ParameterUnitNodeFilter(django_filters.FilterSet):
 
 # TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterUnitViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterUnit.objects.all().order_by('Name')
+    queryset = models.ParameterUnit.objects.all().order_by('Name').filter(is_selectable=True)
     serializer_class = serializers.ParameterUnitSerializer
     # filter_backends = (filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter, ParentFilter)
     # filter_class = ParameterUnitNodeFilter
@@ -131,7 +131,7 @@ class ParameterInstrumentNodeFilter(django_filters.FilterSet):
 
 # TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterInstrumentViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterInstrument.objects.all().order_by('Name')
+    queryset = models.ParameterInstrument.objects.all().order_by('Name').filter(is_selectable=True)
     serializer_class = serializers.ParameterInstrumentSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     # filter_class = ParameterInstrumentNodeFilter
@@ -151,7 +151,7 @@ class ParameterPlatformNodeFilter(django_filters.FilterSet):
 
 # TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterPlatformViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterPlatform.objects.all().order_by('Name')
+    queryset = models.ParameterPlatform.objects.all().order_by('Name').filter(is_selectable=True)
     serializer_class = serializers.ParameterPlatformSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     # filter_class = ParameterPlatformNodeFilter

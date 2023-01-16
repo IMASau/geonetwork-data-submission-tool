@@ -84,24 +84,26 @@ export const DateField2 = ({ value, disabled, onChange, hasError, hasDropdownNav
     })
     const dateValue = isEmpty(value) ? null : parseValue(value);
     const [stateValue, setStateValue] = useCachedState(dateValue ? formatDate(dateValue) : '');
+    const [month, setMonth] = React.useState(dateValue);
 
     const handleChangeValue = (s) => {
         if (isEmpty(s)) {
             setStateValue('')
             onChange(null)
+            setMonth(null)
         } else {
             let d = parseDate(s)
             if (isValidDate(d)) {
                 setStateValue(formatDate(d))
                 onChange(formatValue(d))
+                setMonth(d)
             } else {
                 setStateValue('')
                 onChange(null)
+                setMonth(null)
             }
         }
     }
-
-    const [month, setMonth] = React.useState(dateValue);
 
     const calendarButton = (
         <Popover

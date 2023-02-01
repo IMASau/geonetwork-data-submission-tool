@@ -3,6 +3,7 @@ import json
 import logging
 
 from django.db import migrations
+from django.conf import settings
 from metcalf.imas.data_migration_tool.data_migration import migrate_data
 
 logger = logging.getLogger(__name__)
@@ -81,9 +82,9 @@ def migrate_draft_metadata(apps, schema_editor):
                         if attachment.document == document:
                             attachments.append({
                                 'id': attachment.id,
-                                'file': f'{attachment.file}',
+                                'file': f'{settings.FORCE_SCRIPT_NAME or ""}{settings.MEDIA_URL}{attachment.file}',
                                 'name': attachment.name,
-                                'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
+                                'delete_url': f'{settings.FORCE_SCRIPT_NAME or ""}/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
                                 'created': attachment.created,
                                 'modified': attachment.modified
                             })

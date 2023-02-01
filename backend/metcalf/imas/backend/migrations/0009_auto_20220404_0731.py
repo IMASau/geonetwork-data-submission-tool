@@ -82,7 +82,7 @@ def migrate_draft_metadata(apps, schema_editor):
                         if attachment.document == document:
                             attachments.append({
                                 'id': attachment.id,
-                                'file': f'{settings.FORCE_SCRIPT_NAME or ""}{settings.MEDIA_URL}{attachment.file}',
+                                'file': f'{settings.MEDIA_URL}{attachment.file}',
                                 'name': attachment.name,
                                 'delete_url': f'{settings.FORCE_SCRIPT_NAME or ""}/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
                                 'created': attachment.created,

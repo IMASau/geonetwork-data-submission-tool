@@ -4,6 +4,7 @@ import logging
 
 from django.db import migrations
 from django.conf import settings
+from django.core.management import call_command
 from metcalf.imas.data_migration_tool.data_migration import migrate_data
 
 logger = logging.getLogger(__name__)
@@ -56,6 +57,8 @@ def latest_draft(document):
 def migrate_draft_metadata(apps, schema_editor):
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
+
+    call_command('load_sciencekeywords')
 
     template = json.loads(open('metcalf/imas/data_migration_tool/template.json', 'r').read())
     data_migrations = json.loads(open('metcalf/imas/data_migration_tool/migrations.json', 'r').read())

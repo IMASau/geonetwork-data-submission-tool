@@ -167,13 +167,13 @@ class Command(BaseCommand):
         adminpk = options.get('admin_id', None)
         if adminpk:
             try:
-                User.objects.filter(pk=adminpk, is_staff=True)
+                User.objects.filter(pk=adminpk, is_superuser=True)
             except ObjectDoesNotExist:
                 raise CommandError('Invalid admin user id specified: {id}'.format(id=adminpk))
         else:
-            # Look for the first staff member:
-            adminuser = User.objects.filter(is_staff=True).first()
+            # Look for the first superuser member:
+            adminuser = User.objects.filter(is_superuser=True).first()
             if not adminuser:
-                raise CommandError('No admin user found; create one first')
+                raise CommandError('No admin user found; create one first (If you are running from the docker_entrypoint script it should be sufficient to restart)')
             adminpk = adminuser.pk
         return adminpk

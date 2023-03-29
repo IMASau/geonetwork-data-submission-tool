@@ -46,7 +46,7 @@
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="#">Home</a></li>
                             {% if sitecontent.guide_pdf %}
-                            <li><a href="{{ sitecontent.guide_pdf.url }}">Help</a></li>
+                            <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
                             {% endif %}
                             <li><a href="{% url 'account_login' %}">Sign in</a></li>
                             <li><a href="{% url 'account_signup' %}">Register</a></li>

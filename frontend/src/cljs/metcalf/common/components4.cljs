@@ -2256,3 +2256,8 @@
     :className class
     :menuItems menu-items
     :onClick   on-click}])
+
+
+(defn upload-dashboard
+  [config]
+  [ui-controls/UploadDashboard])

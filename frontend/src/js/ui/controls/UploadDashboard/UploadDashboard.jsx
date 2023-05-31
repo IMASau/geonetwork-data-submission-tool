@@ -2,7 +2,7 @@ import React from 'react'
 import Uppy from '@uppy/core'
 import { Dashboard } from '@uppy/react'
 import Tus from '@uppy/tus'
-// import GoogleDrive from'@uppy/google-drive' // If this line is uncommented, @uppy/provider-views complains that it cannot find the required dependency p-queue
+import GoogleDrive from'@uppy/google-drive' // If this line is uncommented, @uppy/provider-views complains that it cannot find the required dependency p-queue
 
 export default class UploadDashboard extends React.Component {
     constructor(props) {

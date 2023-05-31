@@ -224,7 +224,7 @@
        'm4/lodge-button                        {:view #'components4/lodge-button :init components4/lodge-button-settings}
        'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}
-       'm4/upload-dashboard                    {:view #'components4/upload-dashboard}})
+       'm4/upload-dashboard                    {:view #'components4/upload-dashboard :init components4/upload-dashboard-settings}})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -2203,7 +2203,10 @@ recorded in the standard citation."
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
-     [m4/upload-dashboard]
+     [m4/upload-dashboard
+      {:tus-url          "http://localhost:1080/files"
+       :companion-url    "http://localhost:3020/"
+       :on-upload-success #(js/console.log "File upload at:" (.-uploadURL %2))}]
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["attachments"]

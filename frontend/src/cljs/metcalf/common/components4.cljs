@@ -2257,7 +2257,16 @@
     :menuItems menu-items
     :onClick   on-click}])
 
+(defn upload-dashboard-settings
+  "Settings for upload-dashboard"
+  [_]
+  {::low-code4/req-ks [:tus-url :companion-url :on-upload-success]
+   ::low-code4/opt-ks []})
 
 (defn upload-dashboard
   [config]
-  [ui-controls/UploadDashboard])
+  (let [{:keys [tus-url companion-url on-upload-success]} @(rf/subscribe [::get-block-props config])]
+    [ui-controls/UploadDashboard
+     {:tus-url           tus-url
+      :companion-url     companion-url
+      :on-upload-success on-upload-success}]))

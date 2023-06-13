@@ -592,6 +592,16 @@ def edit(request, uuid):
             },
             "data": {},
         },
+        "attachment_data_form": {
+            "url": reverse("AttachmentData", kwargs={'uuid': doc.uuid}),
+            "fields": {
+                'resource_id': {
+                    'type': 'text',
+                    'required': True
+                },
+            },
+            "data": {},
+        },
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         # FIXME: tidy up (remove this, but probably also associated code)
@@ -635,6 +645,15 @@ def delete_attachment(request, uuid, id):
         return Response({"message": "Deleted"})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+
+
+@login_required
+@api_view(['GET'])
+def attachment_data(request, uuid):
+    resource_id = request.GET.get("resourceId")
+    attachment = get_object_or_404(DocumentAttachment, resourceId=resource_id, document__uuid=uuid)
+    is_document_contributor(request, attachment.document)
+    return Response(AttachmentSerializer(attachment).data)
 
 
 @api_view(['GET'])

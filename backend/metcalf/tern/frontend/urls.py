@@ -31,6 +31,7 @@ urlpatterns = [
     path('tusupload/', TusUpload.as_view(), name='tus_upload'),
     path('tusupload/<uuid:resource_id>', TusUpload.as_view(), name='tus_upload_chunks'),
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),
+    path('attachmentdata/<uuid:uuid>/', attachment_data, name="AttachmentData"),
     path('create/', create, name="Create"),
     path('extract_xml_data/<int:template_id>/', extract_xml_data, name="extract_xml_data"),
     path('extract_xml_data2/<int:template_id>/', extract_xml_data2, name="extract_xml_data2"),

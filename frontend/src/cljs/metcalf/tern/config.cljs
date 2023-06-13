@@ -2204,9 +2204,9 @@ recorded in the standard citation."
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
      [m4/upload-dashboard
-      {:tus-url          "http://localhost:1080/files"
-       :companion-url    "http://localhost:3020/"
-       :on-upload-success #(js/console.log "File upload at:" (.-uploadURL %2))}]
+      {:form-id     [:form]
+       :data-path   ["attachments"]
+       :value-path  ["id"]}]
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["attachments"]

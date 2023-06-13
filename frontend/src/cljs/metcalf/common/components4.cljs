@@ -2260,13 +2260,15 @@
 (defn upload-dashboard-settings
   "Settings for upload-dashboard"
   [_]
-  {::low-code4/req-ks [:tus-url :companion-url :on-upload-success]
+  {::low-code4/req-ks [:form-id :data-path :value-path]
    ::low-code4/opt-ks []})
 
 (defn upload-dashboard
   [config]
-  (let [{:keys [tus-url companion-url on-upload-success]} @(rf/subscribe [::get-block-props config])]
+  (let [context  @(rf/subscribe [:subs/get-context])
+        doc-uuid (get-in context [:document :uuid])]
     [ui-controls/UploadDashboard
-     {:tus-url           tus-url
-      :companion-url     companion-url
-      :on-upload-success on-upload-success}]))
+     {:tus-url           "/tusupload/"
+      :companion-url     "http://localhost:3020/"
+      :on-upload-success js/console.log
+      :metadata           {:document doc-uuid}}]))

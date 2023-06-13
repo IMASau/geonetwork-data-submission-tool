@@ -2270,5 +2270,5 @@
     [ui-controls/UploadDashboard
      {:tus-url           "/tusupload/"
       :companion-url     "http://localhost:3020/"
-      :on-upload-success js/console.log
+      :on-upload-success #(rf/dispatch [::document-attachment-upload-success config (js->clj %1 :keywordize-keys true) (js->clj %2 :keywordize-keys true)])
       :metadata           {:document doc-uuid}}]))

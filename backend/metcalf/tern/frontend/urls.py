@@ -2,6 +2,7 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
 from rest_framework import routers
+from django_tus.views import TusUpload
 
 import metcalf.tern.backend.viewsets as viewsets
 from metcalf.tern.frontend.views import *
@@ -27,6 +28,8 @@ urlpatterns = [
     path('unshare/<uuid:uuid>/', unshare, name="unshare"),
     path('validation/<uuid:uuid>/', validation_results, name="Validation"),
     path('upload/<uuid:uuid>/', UploadView.as_view(), name="Upload"),
+    path('tusupload/', TusUpload.as_view(), name='tus_upload'),
+    path('tusupload/<uuid:resource_id>', TusUpload.as_view(), name='tus_upload_chunks'),
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),
     path('create/', create, name="Create"),
     path('extract_xml_data/<int:template_id>/', extract_xml_data, name="extract_xml_data"),

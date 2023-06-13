@@ -105,11 +105,14 @@
                    :body         data}))
 
 (defn get-json
-  [{:keys [url]}]
+  [{:keys [url data]}]
   (s/assert string? url)
-  (fetch/get url {:accept       :json
-                  :content-type :json
-                  :headers      {:X-CSRFToken (get-csrf)}}))
+  (fetch/get url
+             (merge
+              {:accept       :json
+               :content-type :json
+               :headers      {:X-CSRFToken (get-csrf)}}
+              (when data {:query-params data}))))
 
 (defn post-multipart-form
   [{:keys [url data]}]

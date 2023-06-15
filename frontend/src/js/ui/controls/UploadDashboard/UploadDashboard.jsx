@@ -35,6 +35,7 @@ export default class UploadDashboard extends React.Component {
             <Dashboard
                 uppy={this.uppy}
                 plugins={['GoogleDrive']}
+                width='100%'
                 metaFields={[
                     { id: 'name', name: 'Name', placeholder: 'File name' }
                 ]}

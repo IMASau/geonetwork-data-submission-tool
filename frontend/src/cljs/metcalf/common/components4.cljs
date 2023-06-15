@@ -2265,10 +2265,12 @@
 
 (defn upload-dashboard
   [config]
-  (let [context  @(rf/subscribe [:subs/get-context])
-        doc-uuid (get-in context [:document :uuid])]
+  (let [context       @(rf/subscribe [:subs/get-context])
+        doc-uuid      (get-in context [:document :uuid])
+        tus-url       (get-in context [:urls :tus_upload])
+        companion-url (get-in context [:urls :companion])]
     [ui-controls/UploadDashboard
-     {:tus-url           "/tusupload/"
-      :companion-url     "http://localhost:3020/"
+     {:tus-url           tus-url
+      :companion-url     companion-url
       :on-upload-success #(rf/dispatch [::document-attachment-upload-success config (js->clj %1 :keywordize-keys true) (js->clj %2 :keywordize-keys true)])
       :metadata           {:document doc-uuid}}]))

@@ -62,13 +62,17 @@ def anzsrc_keywords():
 #         'identifier', 'name')
 
 
-def master_urls(request):
+def master_urls():
     return {
         "LandingPage": reverse("LandingPage"),
         "Dashboard": reverse("Dashboard"),
         "Create": reverse("Create"),
         "account_logout": reverse("Sign Out"),
         "STATIC_URL": settings.STATIC_URL,
+    }
+
+def uploader_urls(request):
+    return {
         "tus_upload": request.build_absolute_uri(reverse("tus_upload")),
         "companion": site_content(get_current_site(request))["companion_url"],
     }
@@ -559,7 +563,8 @@ def edit(request, uuid):
         "context": {
             "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
-            "urls": master_urls(request),
+            "urls": master_urls(),
+            "uploader_urls": uploader_urls(request),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
             "uuid": doc.uuid,
             "user": UserSerializer(request.user).data,

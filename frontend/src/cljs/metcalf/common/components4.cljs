@@ -2043,8 +2043,8 @@
         {:keys [form-id disabled is-hidden value-path data-path placeholder row-template]} props
         context       @(rf/subscribe [:subs/get-context])
         doc-uuid      (get-in context [:document :uuid])
-        tus-url       (get-in context [:urls :tus_upload])
-        companion-url (get-in context [:urls :companion])]
+        tus-url       (get-in context [:uploader_urls :tus_upload])
+        companion-url (get-in context [:uploader_urls :companion])]
     (when-not is-hidden
       [:div
        (when (pos? (count items))

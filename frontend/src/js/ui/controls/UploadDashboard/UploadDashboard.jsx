@@ -4,6 +4,7 @@ import { Dashboard } from '@uppy/react'
 import Tus from '@uppy/tus'
 import GoogleDrive from '@uppy/google-drive'
 import Url from '@uppy/url';
+import { ASDC } from "@tern/asdcprovider";
 
 export default class UploadDashboard extends React.Component {
     constructor(props) {
@@ -25,6 +26,7 @@ export default class UploadDashboard extends React.Component {
             .use(Tus, { endpoint: tusUrl })
             .use(GoogleDrive, { companionUrl: companionUrl })
             .use(Url, { companionUrl: companionUrl })
+            .use(ASDC, { companionUrl: companionUrl })
             .on('upload-success', onUploadSuccess);
     }
 
@@ -36,7 +38,7 @@ export default class UploadDashboard extends React.Component {
         return (
             <Dashboard
                 uppy={this.uppy}
-                plugins={['GoogleDrive', 'Url']}
+                plugins={['GoogleDrive', 'Url', 'ASDC']}
                 width='100%'
                 metaFields={[
                     { id: 'name', name: 'Name', placeholder: 'File name' }

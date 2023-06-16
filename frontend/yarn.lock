@@ -2672,6 +2672,9 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@tern/asdcprovider@file:./custom_modules/@tern/asdcprovider":
+  version "1.0.0"
+
 "@transloadit/prettier-bytes@0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@transloadit/prettier-bytes/-/prettier-bytes-0.0.7.tgz#cdb5399f445fdd606ed833872fa0cabdbc51686b"

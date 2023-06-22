@@ -416,11 +416,13 @@ if settings.USE_TERN_STORAGE:
         objects = DocumentManager()
 
         file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
-
+        resourceId = models.CharField(max_length=256, blank=True)
 else:
 
     class DocumentAttachment(AbstractDocumentAttachment):
         objects = DocumentManager()
+
+        resourceId = models.CharField(max_length=256, blank=True)
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

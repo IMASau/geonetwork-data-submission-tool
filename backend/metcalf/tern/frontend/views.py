@@ -71,6 +71,12 @@ def master_urls():
         "STATIC_URL": settings.STATIC_URL,
     }
 
+def uploader_urls(request):
+    return {
+        "tus_upload": request.build_absolute_uri(reverse("tus_upload")),
+        "companion": site_content(get_current_site(request))["companion_url"],
+    }
+
 
 def messages_payload(request):
     return [{"level": message.level,
@@ -558,6 +564,7 @@ def edit(request, uuid):
             "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
             "urls": master_urls(),
+            "uploader_urls": uploader_urls(request),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
             "uuid": doc.uuid,
             "user": UserSerializer(request.user).data,
@@ -589,6 +596,16 @@ def edit(request, uuid):
                     'type': 'file',
                     'required': True
                 }
+            },
+            "data": {},
+        },
+        "attachment_data_form": {
+            "url": reverse("AttachmentData", kwargs={'uuid': doc.uuid}),
+            "fields": {
+                'resource_id': {
+                    'type': 'text',
+                    'required': True
+                },
             },
             "data": {},
         },
@@ -635,6 +652,15 @@ def delete_attachment(request, uuid, id):
         return Response({"message": "Deleted"})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+
+
+@login_required
+@api_view(['GET'])
+def attachment_data(request, uuid):
+    resource_id = request.GET.get("resourceId")
+    attachment = get_object_or_404(DocumentAttachment, resourceId=resource_id, document__uuid=uuid)
+    is_document_contributor(request, attachment.document)
+    return Response(AttachmentSerializer(attachment).data)
 
 
 @api_view(['GET'])

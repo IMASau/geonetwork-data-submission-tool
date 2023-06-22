@@ -24,3 +24,4 @@ class SiteContent(AbstractSiteContent):
     portal_url = models.URLField(blank=True, null=True, default='http://tern.org.au')
     terms_pdf = models.URLField(blank=True, null=True, verbose_name='Terms PDF',
                                 default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')
+    companion_url = models.URLField(blank=True, null=True)

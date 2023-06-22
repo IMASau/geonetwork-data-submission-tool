@@ -20,6 +20,7 @@
             ["/ui/controls/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/controls/RadioGroup/RadioGroup" :as RadioGroup]
             ["/ui/controls/DropdownMenu/DropdownMenu" :as DropdownMenu]
+            ["/ui/controls/UploadDashboard/UploadDashboard" :as UploadDashboard]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -50,6 +51,7 @@
 (assert RadioGroup/RadioGroup)
 (assert RadioGroup/RadioGroupSimple)
 (assert DropdownMenu/DropdownMenu)
+(assert UploadDashboard/default)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -122,3 +124,4 @@
 (def RadioGroup (r/adapt-react-class RadioGroup/RadioGroup))
 (def RadioGroupSimple (r/adapt-react-class RadioGroup/RadioGroupSimple))
 (def DropdownMenu (r/adapt-react-class DropdownMenu/DropdownMenu))
+(def UploadDashboard (r/adapt-react-class UploadDashboard/default))

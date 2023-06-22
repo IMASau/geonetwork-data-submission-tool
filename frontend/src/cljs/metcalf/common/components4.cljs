@@ -2040,7 +2040,11 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [form-id disabled is-hidden value-path data-path placeholder row-template]} props]
+        {:keys [form-id disabled is-hidden value-path data-path placeholder row-template]} props
+        context       @(rf/subscribe [:subs/get-context])
+        doc-uuid      (get-in context [:document :uuid])
+        tus-url       (get-in context [:uploader_urls :tus_upload])
+        companion-url (get-in context [:uploader_urls :companion])]
     (when-not is-hidden
       [:div
        (when (pos? (count items))
@@ -2061,11 +2065,11 @@
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
-       [ui-controls/Dropzone
-        {:disabled    disabled
-         :placeholder (r/as-element placeholder)
-         :maxSize     (* 100 1024 1024) ; 100M in bytes
-         :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
+       [ui-controls/UploadDashboard
+        {:tus-url           tus-url
+         :companion-url     companion-url
+         :on-upload-success #(rf/dispatch [::document-attachment-upload-success config (js->clj %1 :keywordize-keys true) (js->clj %2 :keywordize-keys true)])
+         :metadata           {:document doc-uuid}}]])))
 
 (defn upload-thumbnail-settings
   [_]

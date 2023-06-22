@@ -95,6 +95,7 @@ class MetadataTemplateMapperAdmin(admin.ModelAdmin):
 
 class DocumentAttachmentInline(admin.TabularInline):
     model = models.DocumentAttachment
+    readonly_fields = ['resourceId']
 
 
 def bulk_scheduled(modeladmin, request, queryset):
@@ -341,6 +342,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
 class DocumentAttachmentAdmin(admin.ModelAdmin):
     list_display = ['document', 'file']
+    readonly_fields = ['resourceId']
 
 
 class DocumentCategoryAdmin(admin.ModelAdmin):

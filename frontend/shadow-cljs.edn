@@ -1,7 +1,7 @@
 {:deps   {:aliases [:shadow-cljs]}
  :builds {:tern
           {:target     :browser
-           :js-options {:entry-keys ["browser" "main" "module" "exports"]} ;; default is ["browser" "main" "module"], but the addition of  "exports" is necessary for 'p-queue' import for Upppy
+           :js-options {:entry-keys ["browser" "main" "module" "exports"]} ;; default is ["browser" "main" "module"], but the addition of  "exports" is necessary for 'p-queue' import for Uppy
            :modules    {:app {:entries [metcalf.tern.core]}}
            :output-dir "resources/public/js/app"
            :asset-path "/static/metcalf3/js/app"
@@ -12,6 +12,7 @@
            :closure-defines {metcalf.common.low-code4/enable-component-controls true}}
           :imas
           {:target     :browser
+           :js-options {:entry-keys ["browser" "main" "module" "exports"]} ;; default is ["browser" "main" "module"], but the addition of  "exports" is necessary for 'p-queue' import for Uppy
            :modules    {:app {:entries [metcalf.imas.core]}}
            :output-dir "resources/public/js/app"
            :asset-path "/static/metcalf3/js/app"
@@ -19,6 +20,7 @@
            :closure-defines {metcalf.common.low-code4/enable-component-controls true}}
           :imas-prod
           {:target     :browser
+           :js-options {:entry-keys ["browser" "main" "module" "exports"]} ;; default is ["browser" "main" "module"], but the addition of  "exports" is necessary for 'p-queue' import for Uppy
            :modules    {:app {:entries [metcalf.imas.core]}}
            :output-dir "resources/public/js/app"
            :asset-path "/static/metcalf3/js/app"

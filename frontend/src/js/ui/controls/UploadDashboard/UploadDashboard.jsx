@@ -5,11 +5,12 @@ import Tus from '@uppy/tus'
 import GoogleDrive from '@uppy/google-drive'
 import Url from '@uppy/url';
 import { ASDC } from "@tern/asdcprovider";
+import XHR from '@uppy/xhr-upload';
 
 export default class UploadDashboard extends React.Component {
     constructor(props) {
         super(props);
-        const { tusUrl, companionUrl, onUploadSuccess, metadata } = props;
+        const { tusUrl, xhrUrl, companionUrl, csrf, onUploadSuccess, metadata } = props;
 
         this.uppy = new Uppy({
             id: 'uppy',
@@ -24,6 +25,7 @@ export default class UploadDashboard extends React.Component {
             }
         })
             .use(Tus, { endpoint: tusUrl })
+            .use(XHR, { endpoint: xhrUrl, formData: true, headers: {'X-CSRFToken': csrf} })
             .use(GoogleDrive, { companionUrl: companionUrl })
             .use(Url, { companionUrl: companionUrl })
             .use(ASDC, { companionUrl: companionUrl })

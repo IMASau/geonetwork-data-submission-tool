@@ -71,10 +71,11 @@ def master_urls():
         "STATIC_URL": settings.STATIC_URL,
     }
 
-def uploader_urls(request):
+def uploader_urls(request, doc):
     return {
         "tus_upload": site_content(get_current_site(request))["tus_url"],
         "companion": site_content(get_current_site(request))["companion_url"],
+        "attachment_data": reverse("AttachmentData", kwargs={'uuid': doc.uuid})
     }
 
 
@@ -564,7 +565,7 @@ def edit(request, uuid):
             "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
             "urls": master_urls(),
-            "uploader_urls": uploader_urls(request),
+            "uploader_urls": uploader_urls(request, doc),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
             "uuid": doc.uuid,
             "user": UserSerializer(request.user).data,
@@ -596,16 +597,6 @@ def edit(request, uuid):
                     'type': 'file',
                     'required': True
                 }
-            },
-            "data": {},
-        },
-        "attachment_data_form": {
-            "url": reverse("AttachmentData", kwargs={'uuid': doc.uuid}),
-            "fields": {
-                'resource_id': {
-                    'type': 'text',
-                    'required': True
-                },
             },
             "data": {},
         },
@@ -642,6 +633,21 @@ class UploadView(APIView):
             return Response(form.errors, status=400)
 
 
+class AttachmentDataView(APIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (JSONRenderer,)
+    
+    def post(self, request, uuid):
+        doc = get_object_or_404(Document, uuid=uuid)
+        is_document_contributor(request, doc)
+        attachment = DocumentAttachment.objects.create(
+            document = doc,
+            name = request.data['name'],
+            file = "/".join((str(uuid), request.data['name'].replace(" ", "_"))) # tern storage path; TODO: Other paths types?
+        )
+        return Response(AttachmentSerializer(attachment).data, status=status.HTTP_201_CREATED)
+
+
 @login_required
 @api_view(['DELETE'])
 def delete_attachment(request, uuid, id):
@@ -653,14 +659,6 @@ def delete_attachment(request, uuid, id):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
-
-@login_required
-@api_view(['GET'])
-def attachment_data(request, uuid):
-    resource_id = request.GET.get("resourceId")
-    attachment = get_object_or_404(DocumentAttachment, resourceId=resource_id, document__uuid=uuid)
-    is_document_contributor(request, attachment.document)
-    return Response(AttachmentSerializer(attachment).data)
 
 # @api_view(['GET', 'POST'])
 # @permission_classes([AllowAny])

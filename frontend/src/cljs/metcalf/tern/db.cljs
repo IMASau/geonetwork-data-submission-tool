@@ -21,7 +21,6 @@
           :opt [:form/tick]
           :opt-un [::context
                    ::upload_form
-                   ::attachment_data_form
                    ::attachments
                    ::page
                    ::form]))

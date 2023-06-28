@@ -113,3 +113,19 @@ services:
     command: --upload-dir=/data
     ports:
       - "1080:1080"
+
+
+  companion:
+    image: transloadit/companion
+    # see https://github.com/transloadit/uppy/blob/main/packages/%40uppy/companion/KUBERNETES.md#companion-envyml
+    # for required env-vars:
+    env_file:
+      - .env
+    environment:
+      - COMPANION_UPLOAD_URLS=http://tus:1080/files
+      - COMPANION_DATADIR=/data
+      - COMPANION_DOMAIN=http://companion:3020
+    volumes:
+      - ./volumes/companion:/data
+    ports:
+      - "3020:3020"

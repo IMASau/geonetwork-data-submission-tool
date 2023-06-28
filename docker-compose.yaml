@@ -102,3 +102,14 @@ services:
       - "9000:9000"
     depends_on:
       - db
+
+
+  tus:
+    image: tusproject/tusd
+    env_file:
+      - .env
+    volumes:
+      - ./volumes/tusd:/data
+    command: --upload-dir=/data
+    ports:
+      - "1080:1080"

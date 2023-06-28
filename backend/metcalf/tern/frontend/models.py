@@ -25,3 +25,4 @@ class SiteContent(AbstractSiteContent):
     terms_pdf = models.URLField(blank=True, null=True, verbose_name='Terms PDF',
                                 default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')
     companion_url = models.URLField(blank=True, null=True)
+    tus_url = models.URLField(blank=True, null=True)

@@ -600,20 +600,7 @@
                                   {:type    :modal.type/alert
                                    :message (str status ": Error deleting file")}))))
 
-(defn document-attachment-upload-success
-  [{:keys [db]} [_ config file record]]
-  (let [resource-id (last (string/split (:uploadURL record) "/"))]
-    (actions4/get-document-attachment-data
-     {:db db}
-     {:config      config
-      :resource-id resource-id})))
-
-(defn -get-document-attachment-data
-  [{:keys [db]} [_ config {:keys [status body]}]]
+(defn add-attachment-data
+  [{:keys [db]} [_ config attachment-data]]
   (let [{:keys [form-id data-path value-path]} config]
-    (case status
-      200 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
-      (actions4/open-modal-action
-       {:db db}
-       {:type    :modal.type/alert
-        :message (str status ": Error uploading file")}))))
+    (actions4/add-item-action {:db db} form-id data-path value-path (js->clj attachment-data))))

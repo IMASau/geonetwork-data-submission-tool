@@ -116,7 +116,6 @@ INSTALLED_APPS = [
     "bootstrap3",
     "mozilla_django_oidc",
     "metcalf.tern.healthstatus",
-    "django_tus",
 ]
 
 LOGGING = {
@@ -218,12 +217,6 @@ GIT_VERSION = os.environ.get("GIT_VERSION", "undefined")
 
 USE_TERN_STORAGE = True
 USE_TERN_AUTH = True
-
-TUS_UPLOAD_DIR = MEDIA_ROOT # Upload dir needs to have other stuff in it, otherwise django-tus deletes the directory then complains it doesn't exist (https://github.com/alican/django-tus/issues/21)
-TUS_DESTINATION_DIR = MEDIA_ROOT
-TUS_FILE_NAME_FORMAT = 'increment'  # Other options are: 'random-suffix', 'random', 'keep'
-TUS_EXISTING_FILE = 'error'  #  Other options are: 'overwrite',  'error', 'rename'
-DATA_UPLOAD_MAX_MEMORY_SIZE = 34359738368 # 32GiB
 
 # HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
 # Read more at https://dynaconf.readthedocs.io/en/latest/guides/django.html

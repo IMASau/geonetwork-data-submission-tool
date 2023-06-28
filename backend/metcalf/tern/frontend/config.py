@@ -17,5 +17,4 @@ class FrontendConfig(AppConfig):
 
     def ready(self):
         init_elasticsearch()
-        from . import signals
 

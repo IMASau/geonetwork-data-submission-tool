@@ -2042,8 +2042,10 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [form-id disabled is-hidden value-path data-path placeholder row-template]} props
         context       @(rf/subscribe [:subs/get-context])
-        doc-uuid      (get-in context [:document :uuid])
-        tus-url       (get-in context [:uploader_urls :tus_upload])
+        doc-uuid            (get-in context [:document :uuid])
+        tus-url             (get-in context [:uploader_urls :tus_upload])
+        attachment-data-url (get-in context [:uploader_urls :attachment_data])
+        xhr-url       (:url @(rf/subscribe [:subs/get-upload-form]))
         companion-url (get-in context [:uploader_urls :companion])]
     (when-not is-hidden
       [:div
@@ -2066,10 +2068,13 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
        [ui-controls/UploadDashboard
-        {:tus-url           tus-url
-         :companion-url     companion-url
-         :on-upload-success #(rf/dispatch [::document-attachment-upload-success config (js->clj %1 :keywordize-keys true) (js->clj %2 :keywordize-keys true)])
-         :metadata           {:document doc-uuid}}]])))
+        {:tus-url             tus-url
+         :xhr-url             xhr-url
+         :companion-url       companion-url
+         :attachment-data-url attachment-data-url
+         :csrf                (utils4/get-csrf)
+         :on-upload-success   #(rf/dispatch [::add-attachment-data config %])
+         :metadata            {:document doc-uuid}}]])))
 
 (defn upload-thumbnail-settings
   [_]

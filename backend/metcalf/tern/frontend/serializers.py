@@ -33,7 +33,7 @@ class SiteContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteContent
         fields = ('title', 'organisation_url', 'email', 'tag_line', 'guide_pdf', 'terms_pdf',
-                  'roadmap_pdf', 'releasenotes_url', 'portal_title', 'portal_url', 'companion_url')
+                  'roadmap_pdf', 'releasenotes_url', 'portal_title', 'portal_url', 'companion_url', 'tus_url')
 
 
 class CreateDocumentTemplateSerializer(serializers.ModelSerializer):

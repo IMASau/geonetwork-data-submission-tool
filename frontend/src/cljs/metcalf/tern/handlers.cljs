@@ -23,11 +23,10 @@
             (actions4/load-dashboard-document-data payload)))
 
       "Edit"
-      (let [{:keys [context form upload_form attachment_data_form attachments page]} payload]
+      (let [{:keys [context form upload_form attachments page]} payload]
         (-> {:db {:modal/stack []
                   :context     context
                   :upload_form upload_form
-                  :attachment_data_form attachment_data_form
                   ;:data        data
                   :attachments attachments
                   :page        page}

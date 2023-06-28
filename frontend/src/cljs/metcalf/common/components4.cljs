@@ -2073,7 +2073,7 @@
          :companion-url       companion-url
          :attachment-data-url attachment-data-url
          :csrf                (utils4/get-csrf)
-         :on-upload-success   #(js/console.log %1 %2) ;#(rf/dispatch [::document-attachment-upload-success config (js->clj %1 :keywordize-keys true) (js->clj %2 :keywordize-keys true)])
+         :on-upload-success   #(rf/dispatch [::add-attachment-data config %])
          :metadata            {:document doc-uuid}}]])))
 
 (defn upload-thumbnail-settings

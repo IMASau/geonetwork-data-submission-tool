@@ -280,12 +280,3 @@
                   (genkey-action form-id value-path))))
           s
           data-mapper))
-
-(defn get-document-attachment-data
-  [s {:keys [config resource-id]}]
-  (let [url (get-in s [:db :attachment_data_form :url])
-        data {:resourceId resource-id}]
-    (update s :fx conj [:app/get-json-fx
-                        {:url     url
-                         :data    data
-                         :resolve [::-get-document-attachment-data config]}])))

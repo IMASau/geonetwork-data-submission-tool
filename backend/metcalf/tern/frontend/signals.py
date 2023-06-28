@@ -13,6 +13,5 @@ def create_file(sender, **kwargs):
     DocumentAttachment.objects.create(
         document = document,
         name = kwargs['metadata']['name'],
-        file = kwargs['filename'],
-        resourceId = os.path.basename(kwargs['upload_file_path'])
+        file = kwargs['filename']
     )

@@ -636,7 +636,7 @@ class UploadView(APIView):
 class AttachmentDataView(APIView):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (JSONRenderer,)
-    
+
     def post(self, request, uuid):
         doc = get_object_or_404(Document, uuid=uuid)
         is_document_contributor(request, doc)
@@ -658,24 +658,7 @@ def delete_attachment(request, uuid, id):
         return Response({"message": "Deleted"})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
-
-
-# @api_view(['GET', 'POST'])
-# @permission_classes([AllowAny])
-# def tus_attachment_hook(request):
-#     if request.headers['Hook-Name'] == 'post-create':
-#         id = request.data['Upload']['ID']
-#         metadata = request.data['Upload']['MetaData']
-#         document = get_object_or_404(Document, uuid=metadata['document'])
-
-#         doccument_attachment = DocumentAttachment.objects.create(
-#             document = document,
-#             name = metadata['name'],
-#             file = 'http://0.0.0.0:1080/files/' + id,
-#             resourceId = request.data['Upload']['ID']
-#         )
-#         return Response(AttachmentSerializer(doccument_attachment).data, status=status.HTTP_201_CREATED)
-#     return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])

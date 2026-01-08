@@ -115,7 +115,7 @@ class BaseParameterVocabLoader(object):
         """Returns a generator of triples of the URI, the parent URI
         (nullable), and the data as a dictionary, created from the
         current AODN vocab."""
-        _vocabServer = 'http://vocabs.ands.org.au/repository/api/sparql/aodn_'
+        _vocabServer = 'http://vocabs.ardc.edu.au/repository/api/sparql/aodn_'
         # Key concepts in this query: definition isn't present in
         # every entry so must be OPTIONAL, and the parent concept is
         # both OPTIONAL and can be specified in two different ways
@@ -148,7 +148,7 @@ class BaseParameterVocabLoader(object):
     def _fetch_version(VocabName):
         """Parse the vocab version from a linked-data endpoint. Slightly hacky,
         but works."""
-        url = 'http://vocabs.ands.org.au/repository/api/lda/aodn/{vocab}/current/concept.json'.format(vocab=VocabName)
+        url = 'http://vocabs.ardc.edu.au/repository/api/lda/aodn/{vocab}/current/concept.json'.format(vocab=VocabName)
         response = requests.get(url)
         rjson = response.json()
         aboutstr = rjson['result']['_about']

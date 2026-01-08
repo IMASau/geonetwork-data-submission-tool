@@ -176,7 +176,7 @@ class Command(BaseCommand):
         """Returns a generator of triples of the URI, the parent URI
         (nullable), and the data as a dictionary, created from the
         current AODN vocab."""
-        _vocabServer = 'http://vocabs.ands.org.au/repository/api/sparql/aodn_'
+        _vocabServer = 'http://vocabs.ardc.edu.au/repository/api/sparql/aodn_'
         # Key concepts in this query: definition isn't present in
         # every entry so must be OPTIONAL, and the parent concept is
         # both OPTIONAL and can be specified in two different ways
